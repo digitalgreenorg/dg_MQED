@@ -97,7 +97,7 @@ TEMPLATE_DIRS = (
     #os.path.join(PROJECT_PATH, 'templates/farmerbook'),
     os.path.join(PROJECT_PATH, 'media/coco/app'),
     #os.path.join(PROJECT_PATH, 'templates/deoanalytics'),
-	os.path.join(PROJECT_PATH, 'media/'),
+    os.path.join(PROJECT_PATH, 'media/'),
     #os.path.join(PROJECT_PATH, 'templates/data_upload'),
 )
 
@@ -126,7 +126,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'django.contrib.admindocs',
-    'django.contrib.comments',
     'programs',
     'geographies',
     'people',
@@ -198,26 +197,11 @@ LOGGING = {
             'level':'DEBUG',
             'class':'django.utils.log.NullHandler',
         },
-        'logfile': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(PROJECT_PATH, 'media/social_website/uploads/log/logfile'),
-            'formatter': 'standard',
-        },
+        
         'console':{
             'level':'INFO',
             'class':'logging.StreamHandler',
             'formatter': 'standard'
         },
     },
-    'loggers': {
-        'social_website': {
-            'handlers': ['logfile'],
-            'level': 'DEBUG',
-        },
-        'dashboard': {
-            'handlers': ['logfile'],
-            'level': 'DEBUG',
-        },
-    }
 }
