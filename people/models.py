@@ -12,7 +12,7 @@ class Animator(CocoModel):
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     phone_no = models.CharField(max_length=100, blank=True)
-    partner = models.ForeignKey(Partner)
+    partner = models.ForeignKey(Partner, verbose_name='company')
     district = models.ForeignKey(District, null=True, blank=True)
     assigned_villages = models.ManyToManyField(Village, related_name='assigned_villages', through='AnimatorAssignedVillage', null=True, blank=True)
     total_adoptions = models.PositiveIntegerField(default=0, blank=True, editable=False) 
@@ -44,7 +44,7 @@ class PersonGroup(CocoModel):
     old_coco_id = models.BigIntegerField(editable=False, null=True)
     group_name = models.CharField(max_length=100)
     village = models.ForeignKey(Village)
-    partner = models.ForeignKey(Partner)
+    partner = models.ForeignKey(Partner, verbose_name='company')
 
     class Meta:
         verbose_name = "Person group"
@@ -67,7 +67,7 @@ class Person(CocoModel):
     group = models.ForeignKey(PersonGroup, null=True, blank=True)
     date_of_joining = models.DateField(null=True, blank=True)
     image_exists = models.BooleanField(default=False)
-    partner = models.ForeignKey(Partner)
+    partner = models.ForeignKey(Partner, verbose_name='company')
     objects = models.Manager() #The default manager
     
     class Meta:

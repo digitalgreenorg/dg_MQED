@@ -111,11 +111,8 @@ class Video(CocoModel):
     farmers_shown = models.ManyToManyField(Person)
     actors = models.CharField(max_length=1, choices=ACTORS)
     youtubeid = models.CharField(max_length=20, blank=True)
-    partner = models.ForeignKey(Partner)
-    review_status = models.IntegerField(max_length=1,choices=VIDEO_REVIEW,default=0)
-    video_grade = models.CharField(max_length=1,choices=VIDEO_GRADE,null=True,blank=True)
-    reviewer = models.IntegerField(max_length=1, choices=REVIEW_BY, null=True, blank=True)
-
+    partner = models.ForeignKey(Partner, verbose_name='company')
+    
     class Meta:
         unique_together = ("title", "video_production_start_date", "video_production_end_date", "village")
 

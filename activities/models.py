@@ -9,7 +9,6 @@ from geographies.models import Village
 from programs.models import Partner
 from people.models import Animator, Person, PersonGroup
 from videos.models import Video
-from coco.base_models import ADOPTION_VERIFICATION, SCREENING_OBSERVATION, SCREENING_GRADE, VERIFIED_BY
 
 
 class VRPpayment(models.Manager):
@@ -80,11 +79,8 @@ class Screening(CocoModel):
     farmer_groups_targeted = models.ManyToManyField(PersonGroup)
     videoes_screened = models.ManyToManyField(Video)
     farmers_attendance = models.ManyToManyField(Person, through='PersonMeetingAttendance', blank='False', null='False')
-    partner = models.ForeignKey(Partner)
-    observation_status = models.IntegerField(max_length=1, choices=SCREENING_OBSERVATION, default=0)
-    screening_grade = models.CharField(max_length=1,choices=SCREENING_GRADE,null=True,blank=True)
-    observer = models.IntegerField(max_length=1, choices=VERIFIED_BY, null=True, blank=True)
-
+    partner = models.ForeignKey(Partner, verbose_name='company')
+    
     class Meta:
         unique_together = ("date", "start_time", "end_time", "animator", "village")
 
@@ -96,7 +92,6 @@ class Screening(CocoModel):
 
 post_save.connect(save_log, sender=Screening)
 pre_delete.connect(delete_log, sender=Screening)
-
 
 class PersonMeetingAttendance(CocoModel):
     id = models.AutoField(primary_key=True)
@@ -116,11 +111,8 @@ class PersonAdoptPractice(CocoModel):
     person = models.ForeignKey(Person)
     video = models.ForeignKey(Video)
     date_of_adoption = models.DateField()
-    partner = models.ForeignKey(Partner)
-    verification_status = models.IntegerField(max_length=1, choices=ADOPTION_VERIFICATION, default=0)
-    non_negotiable_check = models.CharField(max_length=256, blank=True, null=True)
-    verified_by = models.IntegerField(max_length=1, choices=VERIFIED_BY, null=True, blank=True)
-
+    partner = models.ForeignKey(Partner, verbose_name='company')
+    
     def __unicode__(self):
         return "%s (%s) (%s) (%s) (%s)" % (self.person.person_name, self.person.father_name, self.person.group.group_name if self.person.group else '', self.person.village.village_name, self.video.title)
 
