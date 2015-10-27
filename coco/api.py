@@ -13,11 +13,11 @@ from activities.models import Screening, PersonAdoptPractice, PersonMeetingAtten
 from geographies.models import Village, District, State
 from programs.models import Partner
 from people.models import Animator, AnimatorAssignedVillage, Person, PersonGroup
-from videos.models import Video, Language, NonNegotiable
+from videos.models import Video, Topic, Language, NonNegotiable
 from models import CocoUser
 
 # Will need to changed when the location of forms.py is changed
-from dashboard.forms import AnimatorForm, NonNegotiableForm, PersonAdoptPracticeForm, PersonForm, PersonGroupForm, ScreeningForm, VideoForm
+from dashboard.forms import AnimatorForm, NonNegotiableForm, PersonAdoptPracticeForm, PersonForm, PersonGroupForm, ScreeningForm, VideoForm, TopicForm
 
 class PMANotSaved(Exception):
     pass
@@ -256,7 +256,8 @@ class PartnerResource(ModelResource):
 
 class MediatorResource(BaseResource):
     mediator_label = fields.CharField()
-    assigned_villages = fields.ListField()
+    assigned_villages_test = fields.ListField()
+    assigned_villages_control = fields.ListField()
     partner = fields.ForeignKey('coco.api.PartnerResource', 'partner')
     district = fields.ForeignKey('coco.api.DistrictResource', 'district', null=True)
     class Meta:
@@ -270,11 +271,15 @@ class MediatorResource(BaseResource):
         excludes = ['time_created', 'time_modified' ]
     dehydrate_partner = partial(foreign_key_to_id, field_name='partner',sub_field_names=['id','partner_name'])
     dehydrate_district = partial(foreign_key_to_id, field_name='district',sub_field_names=['id','district_name'])
-    hydrate_assigned_villages = partial(dict_to_foreign_uri_m2m, field_name='assigned_villages', resource_name = 'village')
+    hydrate_assigned_villages_test = partial(dict_to_foreign_uri_m2m, field_name='assigned_villages_test', resource_name = 'village')
+    hydrate_assigned_villages_control = partial(dict_to_foreign_uri_m2m, field_name='assigned_villages_control', resource_name = 'village')
     hydrate_district = partial(dict_to_foreign_uri, field_name ='district')
     
-    def dehydrate_assigned_villages(self, bundle):
-        return [{'id': vil.id, 'village_name': vil.village_name} for vil in set(bundle.obj.assigned_villages.all()) ]
+    def dehydrate_assigned_villages_test(self, bundle):
+        return [{'id': vil.id, 'village_name': vil.village_name} for vil in set(bundle.obj.assigned_villages.all().filter(village_group='Test Group')) ]
+
+    def dehydrate_assigned_villages_control(self, bundle):
+        return [{'id': vil.id, 'village_name': vil.village_name} for vil in set(bundle.obj.assigned_villages.all().filter(village_group='Control Group')) ]
 
     def dehydrate_mediator_label(self,bundle):
         #for sending out label incase of dropdowns
@@ -343,26 +348,29 @@ class DistrictResource(ModelResource):
 
 class VideoResource(BaseResource):
     village = fields.ForeignKey(VillageResource, 'village')
-    cameraoperator = fields.ForeignKey(MediatorResource, 'cameraoperator')
+    topic = fields.ForeignKey('coco.api.TopicResource', 'topic')
     facilitator = fields.ForeignKey(MediatorResource, 'facilitator')
+    production_team = fields.ForeignKey(MediatorResource, 'production_team')
     farmers_shown = fields.ToManyField('coco.api.PersonResource', 'farmers_shown')
     language = fields.ForeignKey('coco.api.LanguageResource', 'language')
     partner = fields.ForeignKey(PartnerResource, 'partner')
     
     dehydrate_village = partial(foreign_key_to_id, field_name='village', sub_field_names=['id','village_name'])
+    dehydrate_topic = partial(foreign_key_to_id, field_name='topic', sub_field_names=['id','topic_name'])
     dehydrate_language = partial(foreign_key_to_id, field_name='language', sub_field_names=['id','language_name'])
-    dehydrate_cameraoperator = partial(foreign_key_to_id, field_name='cameraoperator', sub_field_names=['id','name'])
+    dehydrate_production_team = partial(foreign_key_to_id, field_name='production_team', sub_field_names=['id','name'])
     dehydrate_facilitator = partial(foreign_key_to_id, field_name='facilitator', sub_field_names=['id','name'])
     hydrate_village = partial(dict_to_foreign_uri, field_name ='village')
+    hydrate_topic = partial(dict_to_foreign_uri, field_name='topic')
     hydrate_language = partial(dict_to_foreign_uri, field_name='language')
-    hydrate_cameraoperator = partial(dict_to_foreign_uri, field_name='cameraoperator', resource_name='mediator')
+    hydrate_production_team = partial(dict_to_foreign_uri, field_name='production_team', resource_name='mediator')
     hydrate_facilitator = partial(dict_to_foreign_uri, field_name='facilitator', resource_name='mediator')
     hydrate_farmers_shown = partial(dict_to_foreign_uri_m2m, field_name = 'farmers_shown', resource_name = 'person')
     hydrate_partner = partial(assign_partner)
     
     class Meta:
         max_limit = None
-        queryset = Video.objects.prefetch_related('village', 'language', 'cameraoperator', 'facilitator', 'farmers_shown', 'partner').all()
+        queryset = Video.objects.prefetch_related('village', 'topic','language', 'production_team', 'facilitator', 'persons_shown', 'partner').all()
         resource_name = 'video'
         authentication = SessionAuthentication()
         authorization = VideoAuthorization()
@@ -373,20 +381,31 @@ class VideoResource(BaseResource):
     def dehydrate_farmers_shown(self, bundle):
         return [{'id': person.id, 'person_name': person.person_name} for person in bundle.obj.farmers_shown.all() ]
 
-
-class NonNegotiableResource(BaseResource):
-    video = fields.ForeignKey(VideoResource, 'video')
+class TopicResource(BaseResource):
+    topic_label = fields.CharField()
     class Meta:
         max_limit = None
-        queryset = NonNegotiable.objects.prefetch_related('video').all()
+        queryset = Topic.objects.all()
+        resource_name = 'topic'
+        authentication = SessionAuthentication()
+        authorization = Authorization()
+        validation = ModelFormValidation(form_class=TopicForm)
+        excludes = ['time_created', 'time_modified']
+        always_return_data = True
+    
+class NonNegotiableResource(BaseResource):
+    topic = fields.ForeignKey(TopicResource, 'topic')
+    class Meta:
+        max_limit = None
+        queryset = NonNegotiable.objects.prefetch_related('topic').all()
         resource_name = 'nonnegotiable'
         authentication = SessionAuthentication()
         authorization = Authorization()
         validation = ModelFormValidation(form_class=NonNegotiableForm)
         excludes = ['time_created', 'time_modified']
         always_return_data = True
-    dehydrate_video = partial(foreign_key_to_id, field_name='video', sub_field_names=['id','title'])
-    hydrate_video = partial(dict_to_foreign_uri, field_name='video', resource_name='video')
+    dehydrate_topic = partial(foreign_key_to_id, field_name='topic', sub_field_names=['id','topic_name'])
+    hydrate_topic = partial(dict_to_foreign_uri, field_name='topic', resource_name='topic')
 
 
 class PersonGroupResource(BaseResource):
@@ -409,7 +428,7 @@ class PersonGroupResource(BaseResource):
     def dehydrate_group_label(self,bundle):
         #for sending out label incase of dropdowns
         v_field = getattr(bundle.obj, 'village').village_name
-        g_field = getattr(bundle.obj, 'group_name')
+        g_field = getattr(bundle.obj, 'name')
         return "("+ g_field+"," + v_field +")"
 
     def hydrate_village(self, bundle):
@@ -494,7 +513,7 @@ class ScreeningResource(BaseResource):
         return [{'id': video.id, 'title': video.title,} for video in bundle.obj.videoes_screened.all()]
         
     def dehydrate_farmer_groups_targeted(self, bundle):
-        return [{'id': group.id, 'group_name': group.group_name,} for group in bundle.obj.farmer_groups_targeted.all()]
+        return [{'id': group.id, 'name': group.name,} for group in bundle.obj.farmer_groups_targeted.all()]
     
     def dehydrate_farmers_attendance(self, bundle):
         return [{'person_id':pma.person.id, 
@@ -522,7 +541,7 @@ class PersonResource(BaseResource):
         excludes = ['date_of_joining', 'image_exists', 'time_created', 'time_modified']
     
     dehydrate_village = partial(foreign_key_to_id, field_name='village',sub_field_names=['id', 'village_name'])
-    dehydrate_group = partial(foreign_key_to_id, field_name='group',sub_field_names=['id','group_name'])
+    dehydrate_group = partial(foreign_key_to_id, field_name='group',sub_field_names=['id','name'])
     hydrate_village = partial(dict_to_foreign_uri, field_name = 'village')
     hydrate_group = partial(dict_to_foreign_uri, field_name = 'group')
     hydrate_partner = partial(assign_partner)
@@ -541,27 +560,27 @@ class PersonResource(BaseResource):
 # For Network and Client Side Optimization Sending Adoptions after 1 Jan 2013
 class PersonAdoptVideoResource(BaseResource):
     person = fields.ForeignKey(PersonResource, 'person')
-    video = fields.ForeignKey(VideoResource, 'video')
+    topic = fields.ForeignKey(VideoResource, 'topic')
     partner = fields.ForeignKey(PartnerResource, 'partner')
     group = fields.DictField(null = True)
     village = fields.DictField(null = True)
     class Meta:
         max_limit = None
-        queryset = PersonAdoptPractice.objects.prefetch_related('person__village','video', 'person__group', 'person', 'partner').filter(date_of_adoption__gte=datetime(2013,1,1))
+        queryset = PersonAdoptPractice.objects.prefetch_related('person__village','topic', 'person__group', 'person', 'partner').filter(date_of_adoption__gte=datetime(2013,1,1))
         resource_name = 'adoption'
         authentication = SessionAuthentication()
         authorization = VillagePartnerAuthorization('person__village__in')
         validation = ModelFormValidation(form_class = PersonAdoptPracticeForm)
         always_return_data = True
         excludes = ['time_created', 'time_modified', 'verification_status', 'non_negotiable_check', 'verified_by']
-    dehydrate_video = partial(foreign_key_to_id, field_name='video',sub_field_names=['id','title'])
+    dehydrate_topic = partial(foreign_key_to_id, field_name='topic',sub_field_names=['id','topic_name'])
     #dehydrate_person = partial(foreign_key_to_id, field_name='person',sub_field_names=['id','person_name'])
-    hydrate_video = partial(dict_to_foreign_uri, field_name='video')
+    hydrate_topic = partial(dict_to_foreign_uri, field_name='topic')
     hydrate_person = partial(dict_to_foreign_uri, field_name='person')
     hydrate_partner = partial(assign_partner)
 
     def dehydrate_group(self, bundle):
-        return {'id': bundle.obj.person.group.id, 'group_name': bundle.obj.person.group.group_name} if bundle.obj.person.group else {'id': None, 'group_name': None}
+        return {'id': bundle.obj.person.group.id, 'name': bundle.obj.person.group.name} if bundle.obj.person.group else {'id': None, 'name': None}
 
     def dehydrate_village(self, bundle):
         return {'id': bundle.obj.person.village.id, 'village_name': bundle.obj.person.village.village_name}

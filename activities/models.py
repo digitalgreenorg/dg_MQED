@@ -8,7 +8,7 @@ from coco.base_models import CocoModel
 from geographies.models import Village
 from programs.models import Partner
 from people.models import Animator, Person, PersonGroup
-from videos.models import Video
+from videos.models import Video, Topic
 
 
 class VRPpayment(models.Manager):
@@ -75,8 +75,8 @@ class Screening(CocoModel):
     end_time = models.TimeField()
     location = models.CharField(max_length=200, blank=True)
     village = models.ForeignKey(Village)
-    animator = models.ForeignKey(Animator)
-    farmer_groups_targeted = models.ManyToManyField(PersonGroup)
+    animator = models.ForeignKey(Animator, verbose_name = 'Field Officer')
+    farmer_groups_targeted = models.ManyToManyField(PersonGroup, verbose_name = 'Farmer Families')
     videoes_screened = models.ManyToManyField(Video)
     farmers_attendance = models.ManyToManyField(Person, through='PersonMeetingAttendance', blank='False', null='False')
     partner = models.ForeignKey(Partner, verbose_name='company')
@@ -109,14 +109,14 @@ class PersonAdoptPractice(CocoModel):
     id = models.AutoField(primary_key=True)
     old_coco_id = models.BigIntegerField(editable=False, null=True)
     person = models.ForeignKey(Person)
-    video = models.ForeignKey(Video)
+    topic = models.ForeignKey(Topic)
     date_of_adoption = models.DateField()
     partner = models.ForeignKey(Partner, verbose_name='company')
     
     def __unicode__(self):
-        return "%s (%s) (%s) (%s) (%s)" % (self.person.person_name, self.person.father_name, self.person.group.group_name if self.person.group else '', self.person.village.village_name, self.video.title)
+        return "%s (%s) (%s) (%s) (%s)" % (self.person.person_name, self.person.father_name, self.person.group.name if self.person.group else '', self.person.village.village_name, self.topics.topic_name)
 
     class Meta:
-        unique_together = ("person", "video", "date_of_adoption")
+        unique_together = ("person", "topic", "date_of_adoption")
 post_save.connect(save_log, sender=PersonAdoptPractice)
 pre_delete.connect(delete_log, sender=PersonAdoptPractice)

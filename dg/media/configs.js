@@ -254,31 +254,6 @@ function() {
 
 
         },
-        'inline': {
-            'entity': 'nonnegotiable',
-            'validation_chk': '#non_negotiable0',
-            'default_num_rows': 5,
-            'add_row' : 1,
-            'req_nonnegotiable' : 1,
-            'exemption_video_type': '2', 
-            'error_message' : 'Add Non-negotiable',
-            'template': 'nonnegotiable_inline',
-            'joining_attribute': {
-                'host_attribute': ["id", "title"],
-                'inline_attribute': "video"
-            },
-            'header': 'nonnegotiable_inline_header',
-            'borrow_attributes': [],
-            foreign_entities: {
-                video: {
-                    video: {
-                        placeholder: 'id_video',
-                        name_field: 'title'
-                    }
-                }
-            }
-        },
-
         'form_field_validation': {
             ignore: ".donotvalidate",
             rules: {
@@ -355,6 +330,82 @@ function() {
                 youtubeid: {
                     maxlength: "YoutubeID should contain at most 20 characters"
                 }
+            },
+
+            highlight: function(element, errorClass, validClass) {
+                $(element)
+                    .parent('div')
+                    .parent('div')
+                    .addClass("error");
+
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element)
+                    .parent('div')
+                    .parent('div')
+                    .removeClass("error");
+
+            },
+            errorElement: "span",
+            errorClass: "help-inline red-color",
+            errorPlacement: function(label, element) {
+                element.parent().append(label);
+            }
+        }
+    };
+
+    var topic_configs = {
+        'page_header': 'Topic',
+        'add_template_name': 'topic_add_edit_template',
+        'edit_template_name': 'topic_add_edit_template',
+        'rest_api_url': '/coco/api/v2/topic/',
+        'list_elements': [{'header':'ID','element':'online_id'},{'element':'topic_name'}],
+        'entity_name': 'topic',
+        'sort_field': 'topic_name',
+        'inline': {
+            'entity': 'nonnegotiable',
+            'validation_chk': '#non_negotiable0',
+            'default_num_rows': 5,
+            'add_row' : 1,
+            'req_nonnegotiable' : 1,
+            'exemption_video_type': '2', 
+            'error_message' : 'Add Non-negotiable',
+            'template': 'nonnegotiable_inline',
+            'joining_attribute': {
+                'host_attribute': ["id", "topic_name"],
+                'inline_attribute': "topic"
+            },
+            'header': 'nonnegotiable_inline_header',
+            'borrow_attributes': [],
+            foreign_entities: {
+                topic: {
+                    topic: {
+                        placeholder: 'id_topic',
+                        name_field: 'topic_name'
+                    }
+                }
+            }
+        },
+
+        'form_field_validation': {
+            ignore: ".donotvalidate",
+            rules: {
+                topic_name: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 200,
+                    // allowedChar: true
+                },
+               
+            },
+            messages: {
+                title: {
+                    required: 'Topic name is required',
+                    minlength: 'Topic name should contain at least 2 characters',
+                    maxlength: 'Topic name should contain at most 200 characters',
+                    // allowedChar: 'Video title should only contain alphabets and local language characters'
+                },
+                
             },
 
             highlight: function(element, errorClass, validClass) {
@@ -1027,6 +1078,7 @@ function() {
         village: village_configs,
         mediator: mediator_configs,
         video: video_configs,
+        topic: topic_configs,
         group: group_configs,
         person: person_configs,
         screening: screening_configs,

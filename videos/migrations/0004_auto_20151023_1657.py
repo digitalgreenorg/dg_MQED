@@ -7,14 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('coco', '0001_initial'),
+        ('videos', '0003_auto_20151023_1147'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='cocouser',
-            name='partner',
-            field=models.ForeignKey(verbose_name=b'company', to='programs.Partner'),
+            model_name='video',
+            name='production_team',
+            field=models.ForeignKey(to='people.Animator', to_field=b'production_team'),
             preserve_default=True,
         ),
     ]
