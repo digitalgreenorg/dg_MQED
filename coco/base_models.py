@@ -42,8 +42,8 @@ VIDEO_STATUS = (
         ('Storyboard', 'Storyboard'),
         ('Filming', 'Filming'),
         ('Post Production', 'Post Production'),
-        ('Completed-Waiting for Approval', 'Completed-Waiting for Approval'),
-        ('Completed-Approvaed', 'Completed-Approvaed'),
+        ('Waiting for Approval', 'Completed-Waiting for Approval'),
+        ('Approvaed', 'Completed-Approvaed'),
 )
 
 RELATION_CHOICES = (

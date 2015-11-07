@@ -25,8 +25,8 @@ class Migration(migrations.Migration):
                 ('father_name', models.CharField(max_length=100)),
                 ('gender', models.CharField(max_length=1, choices=[(b'M', b'Male'), (b'F', b'Female')])),
                 ('phone_no', models.CharField(max_length=100, blank=True)),
-                ('trained_in_video_production', models.CharField(max_length=1, choices=[(0, b'No'), (1, b'Yes')])),
-                ('trained_in_video_screening', models.CharField(max_length=1, choices=[(0, b'No'), (1, b'Yes')])),
+                ('trained_in_video_production', models.CharField(max_length=1, choices=[(b'N', b'No'), (b'Y', b'Yes')])),
+                ('trained_in_video_screening', models.CharField(max_length=1, choices=[(b'N', b'No'), (b'Y', b'Yes')])),
                 ('total_adoptions', models.PositiveIntegerField(default=0, editable=False, blank=True)),
             ],
             options={
@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(serialize=False, primary_key=True)),
                 ('old_coco_id', models.BigIntegerField(null=True, editable=False)),
                 ('person_name', models.CharField(max_length=100)),
-                ('father_name', models.CharField(max_length=100, blank=True)),
+                ('father_name', models.CharField(max_length=100)),
                 ('gender', models.CharField(max_length=1, choices=[(b'M', b'Male'), (b'F', b'Female')])),
                 ('age', models.IntegerField(max_length=3, null=True, blank=True)),
                 ('relation_farmer_family', models.CharField(blank=True, max_length=100, null=True, choices=[(b'Family Member', b'Family Member'), (b'Hired Labourer', b'Hired Labourer'), (b'Other', b'Other')])),
@@ -140,7 +140,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='animator',
             name='district',
-            field=models.ForeignKey(blank=True, to='geographies.District', null=True),
+            field=models.ForeignKey(to='geographies.District'),
             preserve_default=True,
         ),
         migrations.AddField(

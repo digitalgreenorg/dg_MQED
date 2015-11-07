@@ -114,7 +114,7 @@ class PersonAdoptPractice(CocoModel):
     partner = models.ForeignKey(Partner, verbose_name='company')
     
     def __unicode__(self):
-        return "%s (%s) (%s) (%s) (%s)" % (self.person.person_name, self.person.father_name, self.person.group.name if self.person.group else '', self.person.village.village_name, self.topics.topic_name)
+        return "%s (%s) (%s) (%s) (%s)" % (self.person.person_name, self.person.father_name, self.person.group.name if self.person.group else '', self.person.village.village_name, self.topic.topic_name)
 
     class Meta:
         unique_together = ("person", "topic", "date_of_adoption")

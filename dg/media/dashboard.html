@@ -487,11 +487,41 @@
                 </select>
             </div>
         </div> 
+        <div class="form-group">
+            <label class="control-label col-sm-2"><b>Village Group</b></label>
+            <div class="col-sm-4">
+                <select name="village_group" class="form-control">
+                    <option value='' selected='selected'>----------</option> 
+                    <option value='Test Group'>Test Group</option> 
+                    <option value='Control Group'>Conrol Group</option> 
+                </select>
+            </div>
+        </div>
         <div class="form-group"> 
             <label class="control-label col-sm-2"><b>Assigned Villages</b></label>
             <div class="col-sm-4">
                 <select id = "id_ass_villages" name="assigned_villages" class = "chosen-select form-control" multiple>
                 
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2"><b>Tarined in video production</b></label>
+            <div class="col-sm-4">
+                <select name="trained_in_video_production" class="form-control">
+                    <option value='' selected='selected'>----------</option> 
+                    <option value='Y'>Yes</option> 
+                    <option value='N'>No</option> 
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2"><b>Tarined in video screening</b></label>
+            <div class="col-sm-4">
+                <select name="trained_in_video_screening" class="form-control">
+                    <option value='' selected='selected'>----------</option> 
+                    <option value='Y'>Yes</option> 
+                    <option value='N'>No</option> 
                 </select>
             </div>
         </div>
@@ -518,47 +548,47 @@
 <script type="text/template" id="screening_add_edit_template">
             <fieldset class="form-horizontal">
                 <legend>Add Screening</legend>
-				<p class="bold-helptext"> All fields in bold are required</p>
+                <p class="bold-helptext"> All fields in bold are required</p>
                 <div class="form-group"> 
                     <label class="control-label col-sm-2">Date</label>
-                	<div class="col-sm-4">
+                    <div class="col-sm-4">
                         <input class="date-picker form-control" id="date" type="text" placeholder="YYYY-MM-DD" name="date">  
-                 	</div>
+                    </div>
                 </div>
                 <div class="form-group ">
                     <label class="control-label col-sm-2">Start Time</label>
-                 	<div class="controls bootstrap-timepicker col-sm-4">
+                    <div class="controls bootstrap-timepicker col-sm-4">
                         <input class="time-picker form-control" id="start_time" type="text" placeholder="HH:MM" name="start_time">
-                 	</div>
-                 	<div class="help-block col-sm-4">Use 24 hour format</div>
+                    </div>
+                    <div class="help-block col-sm-4">Use 24 hour format</div>
                 </div>
                 <div class="form-group "> 
                     <label class="control-label col-sm-2">End Time</label>
-                 	<div class="controls bootstrap-timepicker col-sm-4"> 
-                 		<input class="time-picker form-control" id="end_time_picker" type="text" placeholder="HH:MM" name="end_time">
-                 	</div>
-                 	<div class="help-block col-sm-4">Use 24 hour format</div>
+                    <div class="controls bootstrap-timepicker col-sm-4"> 
+                        <input class="time-picker form-control" id="end_time_picker" type="text" placeholder="HH:MM" name="end_time">
+                    </div>
+                    <div class="help-block col-sm-4">Use 24 hour format</div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2">Village</label>
-                	<div class="col-sm-4"> 
+                    <div class="col-sm-4"> 
                         <select name="village" id="id_village" class="chosen-select form-control" placeholder="Enter animator to enable">
                         <option value='' selected='selected'>---------</option> 
                         </select>
-                	</div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2">Mediator</label>
-                 	<div class="col-sm-4"> 
+                    <div class="col-sm-4"> 
                         <select name="animator" id="id_animator" class="chosen-select form-control">
                             <option value='' selected='selected'>---------</option> 
                         </select > 
-               	    </div>
+                    </div>
                 </div>
                 <div class="form-group"> 
                     <label class="control-label col-sm-2">Videos Screened</label>
-                	<div class="col-sm-4"> 
-                	<select multiple="multiple" name="videoes_screened" id = "id_videoes_screened" class="chosen-select form-control">
+                    <div class="col-sm-4"> 
+                    <select multiple="multiple" name="videoes_screened" id = "id_videoes_screened" class="chosen-select form-control">
                         </select> 
                     </div>
                 </div>
@@ -569,15 +599,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                	<label class="control-label col-sm-2 notbold">Person</label>
-                	<div class="col-sm-4">
+                    <label class="control-label col-sm-2 notbold">Person</label>
+                    <div class="col-sm-4">
                         <select id="id_person" name = "person" class="chosen-select form-control" multiple="multiple"></select>
                     </div>
                 </div>
                     <br>
             </fieldset>
             <fieldset class = "inline_table">
-            	<h5>Attendance</h5>
+                <h5>Attendance</h5>
                 <table id="pma_table" class="table">
                     <thead class="hide-header">
                         <tr>
@@ -589,9 +619,6 @@
                             </th>
                             <th class="notbold">
                                 Person
-                            </th>
-                            <th class="notbold">
-                                Expressed Adopted Video
                             </th>
                             <th class="notbold">
                                 Question Asked
@@ -633,8 +660,8 @@
                     <%
                         var person_label="";
                         if(typeof(online_id)!="undefined"){
-                            if(group.group_name!=null){
-                                person_label = person_name+"("+father_name+")"+"("+group.group_name+")"+"("+online_id+")";
+                            if(group.name!=null){
+                                person_label = person_name+"("+father_name+")"+"("+group.name+")"+"("+online_id+")";
                             }
                             else{
                                 person_label = person_name+"("+father_name+")"+"("+online_id+")";
@@ -648,24 +675,7 @@
                 </div>
             </div>
         </td>
-        <td>
-            <div class="form-group">
-                <div class="controls">
-                    <select  name="expressed_adoption_video" class="chosen-select pma_select form-control">
-                        <option value>--------</option>
-                        <%if(typeof(videos_seen)!="undefined"){ _.each(videos_seen, function(vid) {
-                            if(typeof(expressed_adoption_video)!="undefined" && vid.id == expressed_adoption_video.id){
-                             %> 
- 							<option selected="selected" value= "<%= vid.id%>"><%= vid.title %></option> 
-                            <%}else{%>
-							<option value= "<%= vid.id%>"><%= vid.title %></option> 
-                        <%}});}%>    
-                    </select>
-                </div>
-            </div>
-        </td>
-        <td>
-            <div class="form-group">
+        <td><div class="form-group">
                 <div class="controls">
                 <%if(typeof(expressed_question)!="undefined"){%>
                     <input type="text"  name="expressed_question" value ="<%=expressed_question%>" class="form-control input-sm">
@@ -703,9 +713,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2">Video</label>
+                    <label class="control-label col-sm-2">Topic</label>
                     <div class="col-sm-4">
-                        <select name="video" id="id_video" class="chosen-select form-control"></select>
+                        <select name="topic" id="id_topic" class="chosen-select form-control"></select>
                     </div>
                 </div>
                 <div class="form-group"> 
@@ -758,7 +768,7 @@
                             Person
                         </th>
                         <th>
-                            Video
+                            Topic
                         </th>
                         <th>
                             Date of Adoption
@@ -772,7 +782,7 @@
 </script>
 
 <script type="text/template" id="adoption_inline_header">
-    <tr> <th> Delete?</th><th> Sr. No.</th><th> Person*</th><th>Video</th><th> Date Of Adoption</th></tr>
+    <tr> <th> Delete?</th><th> Sr. No.</th><th> Person*</th><th>Topic</th><th> Date Of Adoption</th></tr>
 </script>
 
 <script type="text/template" id="adoption_inline">
@@ -800,8 +810,8 @@
                     <% 
                         var person_label="";
                         if(typeof(online_id)!="undefined"){
-                            if(group.group_name!=null){
-                                person_label = person_name+"("+father_name+")"+"("+group.group_name+")"+"("+online_id+")";
+                            if(group.name!=null){
+                                person_label = person_name+"("+father_name+")"+"("+group.name+")"+"("+online_id+")";
                             }
                             else{
                                 person_label = person_name+"("+father_name+")"+"("+online_id+")";
@@ -818,14 +828,16 @@
         <td>
             <div class="form-group">
                 <div class="controls">
-                    <select id = "video<%=index%>" name="video<%=index%>" class="chosen-select form-control" required>
+                    <select id = "topic<%=index%>" name="topic<%=index%>" class="chosen-select form-control" required>
                         <option value>--------</option>
-                        <%if(typeof(videos_seen)!="undefined"){ _.each(videos_seen, function(vid) {
+                        <% alert(videos_seen);
+                        if(typeof(videos_seen)!="undefined"){ _.each(videos_seen, function(vid) {
+                            //alert(vid.title);
                             if(typeof(expressed_adoption_video)!="undefined" && vid.id == expressed_adoption_video.id){
                              %> 
- 							<option selected="selected" value= "<%= vid.id%>"><%= vid.title %></option> 
+                            <option selected="selected" value= "<%= vid.id%>"><%= vid.topic_name %></option> 
                             <%}else{%>
-							<option value= "<%= vid.id%>"><%= vid.title %></option> 
+                            <option value= "<%= vid.id%>"><%= vid.topic_name %></option> 
                         <%}});}%>    
                     </select>
                 </div>
@@ -847,12 +859,34 @@
 <!--////////////////////////////////////////////////// GROUP ADD/EDIT TEMPLATES START //////////////////////////////////////////////-->
 <script type="text/template" id="group_add_edit_template">
     <fieldset class="form-horizontal">
-        <legend>Add Group</legend>
+        <legend>Add Farmer Family</legend>
         <p class="bold-helptext"> All fields in bold are required</p>
         <div class="form-group"> 
             <label class="control-label col-sm-2"><b>Name</b></label>
             <div class="col-sm-4">
-                <input type="text" name="group_name" class="form-control">
+                <input type="text" name="name" class="form-control">
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class="control-label col-sm-2"><b>Father Name</b></label>
+            <div class="col-sm-4">
+                <input type="text" name="father_name" class="form-control">
+            </div>
+        </div>
+        <div class="form-group"> 
+            <label class="control-label col-sm-2"><b>Aadhar ID</b></label>
+            <div class="col-sm-4">
+                <input type="text" name="aadhar_id" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2"><b>Gender</b></label>
+            <div class="col-sm-4">
+                <select name="gender" class="form-control">
+                    <option value='' selected='selected'>----------</option> 
+                    <option value='M'>Male</option> 
+                    <option value='F'>Female</option> 
+                </select>
             </div>
         </div>
         <div class="form-group"> 
@@ -914,42 +948,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Video Type</label>
+                <label class="col-sm-2 control-label">Topic</label>
                 <div class="col-sm-4">
-                    <select name="video_type" class="form-control">
-                        <option value="" selected="selected">
-                            ------------
-                        </option>
-                        <option value="3">
-                            Activity Introduction
-                        </option>
-                        <option value="1">
-                            Demonstration
-                        </option>
-                        <option value="4">
-                            Discussion
-                        </option>
-                        <option value="5">
-                            General Awareness
-                        </option>
-                        <option value="2">
-                            Success Story/Testimonial
-                        </option>
+                    <select id = "id_topic" name="topic" class="chosen-select form-control">
+                        <option value="">---------- </option>
                     </select>
                 </div>
             </div> 
-            <div class="form-group">
-                <label class="control-label dis-block col-sm-2">Production Start Date</label>
-                <div class="col-sm-4">
-                    <input class="date-picker form-control" id="video_production_start_date" name="video_production_start_date" type="text" class="form-control" placeholder="YYYY-MM-DD">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="dis-block control-label col-sm-2">Production End Date</label>
-                <div class="col-sm-4">
-                    <input class="date-picker form-control" id="video_production_end_date" name="video_production_end_date" type="text" class="form-control"  placeholder="YYYY-MM-DD">
-                </div>
-            </div>
+            
             <div class="form-group">
                 <label class="col-sm-2 control-label">Language</label>
                 <div class="col-sm-4">
@@ -985,9 +991,9 @@
                 </div>
             </div>                     
             <div class="form-group">
-                <label class="control-label dis-block col-sm-2">Camera Operator</label>
+                <label class="control-label dis-block col-sm-2">Production Team</label>
                 <div class="col-sm-4">
-                    <select id = "id_cameraoperator" name="cameraoperator" class="chosen-select form-control">
+                    <select id = "id_production_team" name="production_team" class="chosen-select form-control">
                         <option selected="selected" value="">
                             ---------
                         </option>                    
@@ -997,25 +1003,35 @@
             <div class="form-group">
                 <label class="control-label dis-block col-sm-2"><b>Persons Shown</b></label>
                 <div class="col-sm-4">
-                    <select size="20" class="chosen-select form-control" id = "id_farmers_shown" name="farmers_shown" multiple>
+                    <select size="20" class="chosen-select form-control" id = "id_persons_shown" name="persons_shown" multiple>
                     </select>
                 </div>
             </div>
+            
             <div class="form-group">
-                <label class="control-label dis-block col-sm-2">Actors</label>
+                <label class="control-label dis-block col-sm-2">Features Women</label>
                 <div class="col-sm-4">
-                    <select class="input-medium form-control" name="actors">
+                    <select class="input-medium form-control" name="women_featured">
                         <option value="" selected="selected">
                             ---------
                         </option>
-                        <option value="F">
-                            Family
+                        <option value="Farming">
+                            Farming
                         </option>
-                        <option value="G">
-                            Group
+                        <option value="Teaching">
+                            Teaching
                         </option>
-                        <option value="I">
-                            Individual
+                        <option value="Making Decisions">
+                            Making Decisions
+                        </option>
+                        <option value="Being Interviwed">
+                            Being Interviwed
+                        </option>
+                        <option value="Other Activities">
+                            Other Activities
+                        </option>
+                        <option value="Does not feature women">
+                            Does not feature women
                         </option>
                     </select>
                 </div>
@@ -1023,24 +1039,24 @@
             <div class="form-group">
                 <label class="control-label dis-block col-sm-2">Video Suitable For</label>
                 <div class="col-sm-4">
-                    <select name="video_suitable_for" class="form-control">
+                    <select name="video_status" class="form-control">
                         <option value="" selected="selected">
                             ---------
                         </option>
-                        <option value="1">
-                            Dissemination
+                        <option value="Storyboard">
+                            Storyboard
                         </option>
-                        <option value="3">
-                            Dissemination Training
+                        <option value="Filming">
+                            Filming
                         </option>
-                        <option value="4">
-                            Nothing
+                        <option value="Post Production">
+                            Post Production
                         </option>
-                        <option value="5">
-                            Pending For Approval
+                        <option value="Waiting for Approval">
+                            Waiting for Approval
                         </option>
-                        <option value="2">
-                            Video Production Training
+                        <option value="Approved">
+                            Approved
                         </option>
                     </select>
                 </div>
@@ -1060,14 +1076,37 @@
         </fieldset>
 </script>
 
+<!--//////////////////////////////////////////////////// VIDEO ADD/EDIT TEMPLATES END ///////////////////////////////////////////////-->
+
+<!--//////////////////////////////////////////////////// TOPIC ADD/EDIT TEMPLATES START  //////////////////////////////////////////////-->
+<script type="text/template" id="topic_add_edit_template">
+        <fieldset class="form-horizontal">
+            <legend>Add Topic</legend>
+            <p class="bold-helptext"> All fields in bold are required</p>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Title</label>
+                <div class="col-sm-4">
+                    <input type="text" name="topic_name" class="form-control">
+                </div>
+            </div>
+        </fieldset>
+</script>
 <script type="text/template" id="nonnegotiable_inline">
     <tr class="stack-table videoadd" index = <%=index%> name="row<%=index%>">
     <td>
                 <%=index+1%>.</td>
 
-    <td ><div class="form-group"><div class="controls">
-            <textarea name="non_negotiable<%=index%>" id="non_negotiable<%=index%>" class=" input-xlarge form-control donotvalidate" required minlength="1" maxlength="500"rows="1" style="resize:vertical; width:82%;" ></textarea>
+    <td><div class="form-group"><div class="controls">
+            <textarea name="non_negotiable<%=index%>" id="non_negotiable<%=index%>" class=" input-xlarge form-control donotvalidate" required minlength="1" maxlength="500"rows="1" style="resize:vertical;width:85%;" ></textarea>
                 
+            </div></div>
+        </td>
+    <td class="col-sm-2"><div class="form-group"><div class="controls">
+            <input type="text" id="chapter<%=index%>" name="chapter<%=index%>" class="form-control" style="width:75%;">
+            </div></div>
+        </td>
+    <td class="col-sm-2"><div class="form-group"><div class="controls">
+            <input type="text" id="days_after_sowing<%=index%>" name="days_after_sowing<%=index%>" class="form-control" style="width:75%;">
             </div></div>
         </td>
 
@@ -1083,12 +1122,14 @@
 <script type="text/template" id="nonnegotiable_inline_header">
     <tr class="hide-header">  
        <th class="col-md-1 control-label notbold"> Sr. No.</th>
-       <th class="col-md-6 control-label notbold"> Non Negotiables</th>
+       <th class="col-md-6 control-label notbold"> Adoption Points</th>
+       <th class="col-md-1 control-label notbold"> Chapter</th>
+       <th class="col-md-1 control-label notbold"> Days After Sowing</th>
        <th class="col-md-5 control-label notbold">Physically Verifiable</th>             
     </tr>
 </script>
 
-<!--//////////////////////////////////////////////////// VIDEO ADD/EDIT TEMPLATES END ///////////////////////////////////////////////-->
+<!--//////////////////////////////////////////////////// TOPIC ADD/EDIT TEMPLATES END ///////////////////////////////////////////////-->
 
 <!--//////////////////////////////////////////////////// PERSON ADD/EDIT TEMPLATES START ///////////////////////////////////////////////-->
 

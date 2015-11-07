@@ -88,6 +88,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(serialize=False, primary_key=True)),
                 ('old_coco_id', models.BigIntegerField(null=True, editable=False)),
                 ('village_name', models.CharField(max_length=100)),
+                ('village_group', models.CharField(max_length=100, choices=[(b'Test Group', b'Test Group'), (b'Control Group', b'Control Group')])),
                 ('start_date', models.DateField(null=True, blank=True)),
                 ('latitude', models.CharField(max_length=25, null=True, blank=True)),
                 ('longitude', models.CharField(max_length=25, null=True, blank=True)),
