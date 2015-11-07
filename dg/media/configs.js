@@ -130,7 +130,7 @@ function() {
     };
 
     var mediator_configs = {
-        'page_header': 'Mediator',
+        'page_header': 'Field Officer',
         'add_template_name': 'mediator_add_edit_template',
         'edit_template_name': 'mediator_add_edit_template',
         'rest_api_url': '/coco/api/v2/mediator/',
@@ -454,7 +454,7 @@ function() {
     };
 
     var group_configs = {
-        'page_header': 'Farmer Familie',
+        'page_header': 'Farmer Family',
         'add_template_name': 'group_add_edit_template',
         'edit_template_name': 'group_add_edit_template',
         'rest_api_url': '/coco/api/v2/group/',
@@ -905,7 +905,7 @@ function() {
                         'dependency': [{
                             'source_form_element': 'person',
                             'dep_attr': 'id',
-                            //'src_attr': 'videos_seen',
+                            'src_attr': 'videos_seen',
                         }]
                     }
                 }

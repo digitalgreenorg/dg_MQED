@@ -506,7 +506,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2"><b>Tarined in video production</b></label>
+            <label class="control-label col-sm-2"><b>Trained in video production</b></label>
             <div class="col-sm-4">
                 <select name="trained_in_video_production" class="form-control">
                     <option value='' selected='selected'>----------</option> 
@@ -516,7 +516,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2"><b>Tarined in video screening</b></label>
+            <label class="control-label col-sm-2"><b>Trained in video screening</b></label>
             <div class="col-sm-4">
                 <select name="trained_in_video_screening" class="form-control">
                     <option value='' selected='selected'>----------</option> 
@@ -578,7 +578,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2">Mediator</label>
+                    <label class="control-label col-sm-2">Field Officer</label>
                     <div class="col-sm-4"> 
                         <select name="animator" id="id_animator" class="chosen-select form-control">
                             <option value='' selected='selected'>---------</option> 
@@ -593,7 +593,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2">Groups Attended</label>
+                    <label class="control-label col-sm-2">Families Attended</label>
                     <div class="col-sm-4">
                         <select id="id_group"  name = "farmer_groups_targeted" multiple="multiple" class="chosen-select form-control"></select> 
                     </div>
@@ -740,7 +740,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2">Groups Attended</label>
+                <label class="control-label col-sm-2">Families Attended</label>
                 <div class="col-sm-4">
                     <select name="group" id="id_group" multiple="multiple" class="chosen-select form-control"></select>
                 </div>
@@ -830,9 +830,8 @@
                 <div class="controls">
                     <select id = "topic<%=index%>" name="topic<%=index%>" class="chosen-select form-control" required>
                         <option value>--------</option>
-                        <% alert(videos_seen);
+                        <% 
                         if(typeof(videos_seen)!="undefined"){ _.each(videos_seen, function(vid) {
-                            //alert(vid.title);
                             if(typeof(expressed_adoption_video)!="undefined" && vid.id == expressed_adoption_video.id){
                              %> 
                             <option selected="selected" value= "<%= vid.id%>"><%= vid.topic_name %></option> 
@@ -1180,7 +1179,7 @@
                 </div>
             </div>
 			<div class="form-group"> 
-                <label class="control-label col-sm-2 notbold">Group</label> 
+                <label class="control-label col-sm-2 notbold">Farmer Family</label> 
                 <div class="col-sm-4">
                     <select id = "id_group" name="group" class="chosen-select form-control">
                     

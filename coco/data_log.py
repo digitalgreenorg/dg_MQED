@@ -74,7 +74,7 @@ def send_updated_log(request):
         partner_id = coco_user.partner_id
         villages = CocoUserVillages.objects.filter(cocouser_id = coco_user.id).values_list('village_id', flat = True)
         ServerLog = get_model('coco', 'ServerLog')
-        rows = ServerLog.objects.filter(timestamp__gte = timestamp, entry_table__in = ['Animator', 'Video', 'NonNegotiable'])
+        rows = ServerLog.objects.filter(timestamp__gte = timestamp, entry_table__in = ['Animator', 'Video', 'NonNegotiable', 'Topic'])
         if partner_id:
             rows = rows | ServerLog.objects.filter(timestamp__gte = timestamp, village__in = villages, partner = partner_id )
         else:

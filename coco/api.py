@@ -140,7 +140,7 @@ def get_user_videos(user_id):
     ###FIRST GET VIDEOS PRODUCED IN STATE WITH SAME PARTNER
     videos = Video.objects.filter(village__block__district__state__in = user_states, partner_id = coco_user.partner_id).values_list('id', flat = True)
     ###Get videos screened to allow inter partner sharing of videos
-    videos_seen = set(Person.objects.filter(village__in = villages, partner_id = coco_user.partner_id).values_list('screening__videoes_screened', flat=True))
+    videos_seen = set(Person.objects.filter(village__in = villages, partner_id = coco_user.partner_id).values_list('screening__videoes_screened__topic', flat=True))
     return set(list(videos) + list(videos_seen) + list(user_videos))
     
 def get_user_mediators(user_id):
@@ -527,7 +527,7 @@ class PersonResource(BaseResource):
     
     class Meta:
         max_limit = None
-        queryset = Person.objects.prefetch_related('village','group', 'personmeetingattendance_set__screening__videoes_screened', 'partner').all()
+        queryset = Person.objects.prefetch_related('village','group', 'personmeetingattendance_set__screening__videoes_screened__topic', 'partner').all()
         resource_name = 'person'
         authorization = VillagePartnerAuthorization('village__in')
         validation = ModelFormValidation(form_class = PersonForm)
@@ -548,7 +548,7 @@ class PersonResource(BaseResource):
         return p_field+"("+v_field+","+f_field+")"
     
     def dehydrate_videos_seen(self, bundle):
-        videos_seen = [{'id': video.id, 'title': video.title} for pma in bundle.obj.personmeetingattendance_set.all() for video in pma.screening.videoes_screened.all() ]
+        videos_seen = [{'id': video.topic.id, 'topic_name': video.topic.topic_name} for pma in bundle.obj.personmeetingattendance_set.all() for video in pma.screening.videoes_screened.all() ]
         return [dict(tupleized) for tupleized in set(tuple(item.items()) for item in videos_seen)]
 
 class PersonAdoptVideoResource(BaseResource):
