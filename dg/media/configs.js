@@ -120,7 +120,7 @@ function() {
     var village_configs = {
         'page_header': 'Village',
         'rest_api_url': '/coco/api/v2/village/',
-        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Name','element':'village_name'},{'element':'block_name'},{'element':'start_date'},{'header':'State','element':'state_name'}],
+        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Name','element':'village_name'},{'header':'Taluk','element':'block_name'},{'element':'start_date'},{'header':'State','element':'state_name'}],
         'entity_name': 'village',
         'dashboard_display': {
             listing: true,
