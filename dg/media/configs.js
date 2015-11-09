@@ -459,7 +459,7 @@ function() {
         'edit_template_name': 'group_add_edit_template',
         'rest_api_url': '/coco/api/v2/group/',
         'entity_name': 'group',
-        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Name','element':'name'},{'header':'Village','element':'village.village_name'}],
+        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Name','element':'name'},{'header':'Father Name','element':'father_name'},{'header':'Village','element':'village.village_name'}],
         'inc_table_name': 'persongroup',
         'unique_together_fields': ['name', 'village.id'],
         'sort_field': 'name',
