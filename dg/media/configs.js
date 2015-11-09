@@ -555,7 +555,7 @@ function() {
         'page_header': 'Screening',
         'add_template_name': 'screening_add_edit_template',
         'edit_template_name': 'screening_add_edit_template',
-        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Screening Date','element':'date'},{'header':'Mediator','element':'animator.name'},{'header':'Village','element':'village.village_name'},{'header':'Groups Attended','subelement':'name','element':'farmer_groups_targeted'},{'header':'Videos Screened','subelement':'title','element':'videoes_screened'}],
+        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Screening Date','element':'date'},{'header':'Field Officer','element':'animator.name'},{'header':'Village','element':'village.village_name'},{'header':'Farmer Families Attended','subelement':'name','element':'farmer_groups_targeted'},{'header':'Videos Screened','subelement':'title','element':'videoes_screened'}],
         'rest_api_url': '/coco/api/v2/screening/',
         'entity_name': 'screening',
         download_chunk_size: 1000,
@@ -767,7 +767,7 @@ function() {
         'rest_api_url': '/coco/api/v2/adoption/',
         'entity_name': 'adoption',
         'inc_table_name': 'personadoptpractice',
-        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Date','element':'date_of_adoption'},{'header':'Person ID','element':'person.online_id'},{'header':'Person','element':'person.person_name'},{'header':'Group','element':'group.name'},{'header':'Village','element':'village.village_name'},{'header':'Topic','element':'topic.topic_name'}],
+        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Date','element':'date_of_adoption'},{'header':'Person ID','element':'person.online_id'},{'header':'Person','element':'person.person_name'},{'header':'Farmer Family','element':'group.name'},{'header':'Village','element':'village.village_name'},{'header':'Topic','element':'topic.topic_name'}],
         'unique_together_fields': ['person.id', 'topic.id', 'date_of_adoption'],
         form_field_validation: {
             ignore: [],
