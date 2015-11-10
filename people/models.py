@@ -21,7 +21,7 @@ class Animator(CocoModel):
     total_adoptions = models.PositiveIntegerField(default=0, blank=True, editable=False) 
 
     class Meta:
-        verbose_name = "Fieled Officer"
+        verbose_name = "Field Officer"
         unique_together = ("name", "gender", "partner", "district")
 
     def get_village(self):
@@ -45,7 +45,7 @@ class AnimatorAssignedVillage(CocoModel):
     start_date = models.DateField(null=True, blank=True)
 
     class Meta:
-        verbose_name = "Fieled officer assigned village"
+        verbose_name = "Field officer assigned village"
         
 class PersonGroup(CocoModel):
     id = models.AutoField(primary_key=True)

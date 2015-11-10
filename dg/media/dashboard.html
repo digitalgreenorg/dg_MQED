@@ -463,7 +463,7 @@
 <!--///////////////////////////////////////////////////// MEDIATOR ADD/EDIT TEMPLATES START ///////////////////////////////////////////-->
 <script type="text/template" id="mediator_add_edit_template">
     <fieldset class="form-horizontal">
-        <legend>Add Mediator</legend>
+        <legend>Add Field Officer</legend>
 		<p class="bold-helptext"> All fields in bold are required</p>
         <div class="form-group">
             <label class="control-label col-sm-2"><b>Name</b></label>
@@ -832,6 +832,7 @@
                         <option value>--------</option>
                         <% 
                         if(typeof(videos_seen)!="undefined"){ _.each(videos_seen, function(vid) {
+                            alert(vid.topic_name);
                             if(typeof(expressed_adoption_video)!="undefined" && vid.id == expressed_adoption_video.id){
                              %> 
                             <option selected="selected" value= "<%= vid.id%>"><%= vid.topic_name %></option> 

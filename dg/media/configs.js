@@ -134,7 +134,7 @@ function() {
         'add_template_name': 'mediator_add_edit_template',
         'edit_template_name': 'mediator_add_edit_template',
         'rest_api_url': '/coco/api/v2/mediator/',
-        'list_elements': [{'header':'ID', 'element':'online_id'},{'element':'name'},{'subelement':'village_name','element':'assigned_villages'}],
+        'list_elements': [{'header':'ID', 'element':'online_id'},{'header':'ID','element':'name'},{'subelement':'village_name','element':'assigned_villages'}],
         'entity_name': 'mediator',
         'unique_together_fields': ['name', 'gender', 'district.id'],
         'sort_field': 'name',
