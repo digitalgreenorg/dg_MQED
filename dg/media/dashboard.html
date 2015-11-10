@@ -832,7 +832,6 @@
                         <option value>--------</option>
                         <% 
                         if(typeof(videos_seen)!="undefined"){ _.each(videos_seen, function(vid) {
-                            alert(vid.topic_name);
                             if(typeof(expressed_adoption_video)!="undefined" && vid.id == expressed_adoption_video.id){
                              %> 
                             <option selected="selected" value= "<%= vid.id%>"><%= vid.topic_name %></option> 
