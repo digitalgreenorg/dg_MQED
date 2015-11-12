@@ -13,10 +13,6 @@ class Command(BaseCommand):
 			error_file = open('/home/ubuntu/django_projects/errors.csv', 'wb')
 			wrtr = csv.writer(error_file, delimiter=',', quotechar='"')
 			wrtr.writerow(["Entry No.", "File Name", "Error"])
-
-			#csvfile = open(filename, 'rb')
-			#rows_file = csv.DictReader(csvfile)
-
 			xls = ExcelFile('/home/ubuntu/django_projects/dg_MQED/new/'+filename)
 			rows_file = xls.parse(xls.sheet_names[0])
 			#print df.to_dict()
