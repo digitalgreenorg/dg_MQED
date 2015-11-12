@@ -8,9 +8,9 @@ from programs.models import *
 class Command(BaseCommand):
 	def handle(self, *args, **options):
 
-		for filename in os.listdir('/home/ubuntu/django_projects/dg_MQED/New'):
+		for filename in os.listdir('/home/ubuntu/django_projects/New'):
 			
-			error_file = open('/home/ubuntu/django_projects/dg_MQED/errors.csv', 'wb')
+			error_file = open('/home/ubuntu/django_projects/errors.csv', 'wb')
 			wrtr = csv.writer(error_file, delimiter=',', quotechar='"')
 			wrtr.writerow(["Entry No.", "File Name", "Error"])
 
