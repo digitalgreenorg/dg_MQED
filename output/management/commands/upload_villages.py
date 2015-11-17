@@ -16,25 +16,6 @@ class Command(BaseCommand):
 			xls = ExcelFile('/home/ubuntu/django_projects/dg_MQED/New/'+filename)
 			rows_file = xls.parse(xls.sheet_names[0])
 			#print df.to_dict()
-			
-			wrtr.writerow(["Companies"])
-			i = 0
-			for index, row in rows_file.iterrows():
-				partner_querry_set = Partner.objects.values_list('partner_name','id')
-				partner_map = dict(partner_querry_set)
-
-				if unicode(row['Company']) not in partner_map:
-					i = i+1
-					try:
-						partner = Partner(user_created_id=1,
-									partner_name = unicode(row['Company'])
-									)
-						partner.save()
-
-					except Exception as e:
-						wrtr.writerow([i, filename, e])
-						print i, filename, e
-
 
 			wrtr.writerow(["States"])	
 			i = 0
