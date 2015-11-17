@@ -145,9 +145,9 @@ class PersonAdoptPracticeAdmin(admin.ModelAdmin):
         models.TextField: {'widget': Textarea(attrs={'rows':4, 'cols':40})},
     }
     list_display = ('id', 'date_of_adoption', '__unicode__')
-    list_filter = ('date_of_adoption','person__village__block__district__state__state_name', 'partner__partner_name')
-    search_fields = ['user_created__username', 'id', 'person__person_name', 'person__father_name', 'person__village__village_name', 'topic__topic_name', 'person__group__name','person__village__block__block_name','person__village__block__district__district_name','person__village__block__district__state__state_name']
-    raw_id_fields = ('person', 'topic')
+    list_filter = ('date_of_adoption','group__village__block__district__state__state_name', 'partner__partner_name')
+    search_fields = ['user_created__username', 'id', 'group__name', 'group__village__village_name', 'topic__topic_name', 'group__village__block__block_name','group__village__block__district__district_name','group__village__block__district__state__state_name']
+    raw_id_fields = ('group', 'topic')
 
 
 class PersonAdmin(admin.ModelAdmin):

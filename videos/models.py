@@ -50,15 +50,14 @@ class Video(CocoModel):
     language = models.ForeignKey(Language)
     summary = models.TextField(blank=True)
     village = models.ForeignKey(Village)
-    facilitator = models.ForeignKey(Animator, related_name='facilitator')
-    production_team = models.ForeignKey(Animator, related_name='production_team')
+    production_team = models.ManyToManyField(Animator, related_name='production_team')
     persons_shown = models.ManyToManyField(Person, related_name='persons_shown')
     other_persons_shown = models.ForeignKey(Person, null=True, blank=True)
     women_featured = models.CharField(max_length=100, choices=WOMEN_FEATURED)
     approval_date = models.DateField(null=True, blank=True)
     video_status = models.CharField(max_length=100, choices=VIDEO_STATUS)
     youtubeid = models.CharField(max_length=20, blank=True)
-    partner = models.ForeignKey(Partner, verbose_name='company')
+    partner = models.ForeignKey(Partner, verbose_name='Supply Partner')
     
     class Meta:
         unique_together = ("title", "topic", "village")

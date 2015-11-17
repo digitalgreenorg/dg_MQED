@@ -12,7 +12,7 @@ class Animator(CocoModel):
     name = models.CharField(max_length=100)
     father_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    partner = models.ForeignKey(Partner, verbose_name='company')
+    partner = models.ForeignKey(Partner, verbose_name='Supply Partner')
     phone_no = models.CharField(max_length=100, blank=True)
     district = models.ForeignKey(District)
     assigned_villages = models.ManyToManyField(Village, related_name='assigned_villages', through='AnimatorAssignedVillage', null=True, blank=True)
@@ -55,7 +55,7 @@ class PersonGroup(CocoModel):
     aadhar_id = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     village = models.ForeignKey(Village)
-    partner = models.ForeignKey(Partner, verbose_name='company')
+    partner = models.ForeignKey(Partner, verbose_name='Supply Partner')
 
     class Meta:
         verbose_name = "Farmer Family"
@@ -79,7 +79,7 @@ class Person(CocoModel):
     relation_farmer_family = models.CharField(max_length=100, choices=RELATION_CHOICES, null=True, blank=True)
     other_profession = models.CharField(max_length=100, null=True, blank=True)
     phone_no = models.CharField(max_length=10, blank=True)
-    partner = models.ForeignKey(Partner, verbose_name='company')
+    partner = models.ForeignKey(Partner, verbose_name='Supply Partner')
     objects = models.Manager() #The default manager
     
     class Meta:

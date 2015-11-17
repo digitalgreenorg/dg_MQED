@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
                 ('total_adoptions', models.PositiveIntegerField(default=0, editable=False, blank=True)),
             ],
             options={
-                'verbose_name': 'Fieled Officer',
+                'verbose_name': 'Field Officer',
             },
             bases=(models.Model,),
         ),
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
                 ('village', models.ForeignKey(to='geographies.Village')),
             ],
             options={
-                'verbose_name': 'Fieled officer assigned village',
+                'verbose_name': 'Field officer assigned village',
             },
             bases=(models.Model,),
         ),
@@ -82,7 +82,7 @@ class Migration(migrations.Migration):
                 ('father_name', models.CharField(max_length=100)),
                 ('aadhar_id', models.CharField(max_length=100)),
                 ('gender', models.CharField(max_length=1, choices=[(b'M', b'Male'), (b'F', b'Female')])),
-                ('partner', models.ForeignKey(verbose_name=b'company', to='programs.Partner')),
+                ('partner', models.ForeignKey(verbose_name=b'Supply Partner', to='programs.Partner')),
                 ('user_created', models.ForeignKey(related_name='people_persongroup_created', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
                 ('user_modified', models.ForeignKey(related_name='people_persongroup_related_modified', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
                 ('village', models.ForeignKey(to='geographies.Village')),
@@ -106,7 +106,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='person',
             name='partner',
-            field=models.ForeignKey(verbose_name=b'company', to='programs.Partner'),
+            field=models.ForeignKey(verbose_name=b'Supply Partner', to='programs.Partner'),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -146,7 +146,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='animator',
             name='partner',
-            field=models.ForeignKey(verbose_name=b'company', to='programs.Partner'),
+            field=models.ForeignKey(verbose_name=b'Supply Partner', to='programs.Partner'),
             preserve_default=True,
         ),
         migrations.AddField(

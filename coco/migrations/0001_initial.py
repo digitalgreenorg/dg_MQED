@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('time_modified', models.DateTimeField(auto_now=True, null=True)),
                 ('id', models.AutoField(serialize=False, primary_key=True)),
                 ('old_coco_id', models.IntegerField(null=True, editable=False)),
-                ('partner', models.ForeignKey(verbose_name=b'company', to='programs.Partner')),
+                ('partner', models.ForeignKey(verbose_name=b'Supply Partner', to='programs.Partner')),
                 ('user', models.OneToOneField(related_name='coco_user', to=settings.AUTH_USER_MODEL)),
                 ('user_created', models.ForeignKey(related_name='coco_cocouser_created', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
                 ('user_modified', models.ForeignKey(related_name='coco_cocouser_related_modified', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),

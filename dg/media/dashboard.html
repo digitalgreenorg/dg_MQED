@@ -701,156 +701,46 @@
 <!--///////////////////////////////////////////////// SCREENING ADD/EDIT TEMPLATES END //////////////////////////////////////////////-->
 
 <!--///////////////////////////////////////////////// ADOPTION ADD/EDIT TEMPLATES START //////////////////////////////////////////////-->
-<script type="text/template" id="adoption_edit_template">
-        <fieldset class="form-horizontal">
-                <legend>Edit Adoption</legend>
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Person</label>
-                	<div class="col-sm-4"> 
-                        <select name="person" id="id_person" class="chosen-select form-control">
-                        <option value="">---------- </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Topic</label>
-                    <div class="col-sm-4">
-                        <select name="topic" id="id_topic" class="chosen-select form-control"></select>
-                    </div>
-                </div>
-                <div class="form-group"> 
-                    <label class="control-label col-sm-2">Date</label>
-                	<div class="col-sm-4">
-                        <input class="date-picker inl_date form-control" id="date" type="text" placeholder="YYYY-MM-DD" name="date_of_adoption">  
-                 	</div>
-                 </div>
-        </fieldset>
-    
-</script>
-<script type="text/template" id="adoption_add_template">
-        <fieldset class="form-horizontal">
-            <legend>Add Adoption</legend>
-            <p class="bold-helptext"> All fields in bold are required</p>
-            <div class="form-group">
-                <label class="control-label col-sm-2">Village</label>
-                <div class="col-sm-4"> 
-                <select name="village" id="id_village" class="chosen-select form-control">
-                <option value="">---------- </option>
+<script type="text/template" id="adoption_add_edit_template">
+    <fieldset class="form-horizontal">
+        <legend>Add Adoption</legend>
+        <p class="bold-helptext"> All fields in bold are required</p>
+        <div class="form-group">
+            <label class="control-label col-sm-2"><b>Village</b></label>
+            <div class="col-sm-4">
+                <select id = "id_village" name="village" class = "chosen-select form-control">
                 </select>
-                </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">Families Attended</label>
-                <div class="col-sm-4">
-                    <select name="group" id="id_group" multiple="multiple" class="chosen-select form-control"></select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2 notbold">Person</label>
-                <div class="col-sm-4">
-                    <select name="float_person" id="id_person" multiple="multiple" class="chosen-select form-control"></select>
-                </div>
-            </div>
-                <br>
-        </fieldset>
-        <fieldset class = "inline_table">
-            <h5>Adoptions</h5>
-            <table id="adoptions_table" class="table">
-                <thead>
-                    <tr class="hide-header">
-                        <th class= "notbold">
-                            Delete?
-                        </th>
-                        <th class = "notbold">
-                            Sr. No.
-                        </th>
-                        <th>
-                            Person
-                        </th>
-                        <th>
-                            Topic
-                        </th>
-                        <th>
-                            Date of Adoption
-                        </th>
-                    </tr>
-                </thead>
-                <tbody id="bulk">
-                </tbody>
-            </table>
-        </fieldset>
-</script>
-
-<script type="text/template" id="adoption_inline_header">
-    <tr> <th> Delete?</th><th> Sr. No.</th><th> Person*</th><th>Topic</th><th> Date Of Adoption</th></tr>
-</script>
-
-<script type="text/template" id="adoption_inline">
-    <tr class="stack-table adoptionadd" index = <%=index%> person_id = <%=id%> name="row<%=index%>">
-    <td>
-    <div class="form-group">
-        <div class="controls">
-            <i class="glyphicon glyphicon-remove remove" onClick = "javascript:$('tr[index = <%=index%>]').fadeOut('slow',function(){
-                        $('tr[index = <%=index%>]').remove();
-                    });"></i>
         </div>
-    </div>
-    </td>
-    <td>
-    <div class="form-group">
-        <div class="controls">
-        <input class="form-control" type="text" style="display:none;" id="person_row<%=index%>" name="person<%=index%>" value = "<%=id%>" disabled>
-        <%=index+1%>
+        <div class="form-group">
+            <label class="control-label col-sm-2"><b>Field Officer</b></label>
+            <div class="col-sm-4">
+                <select id = "id_animator" name="animator" class = "chosen-select form-control"> required
+                </select>
+            </div>
         </div>
-    </div>
-    </td>
-        <td>
-            <div class="form-group">
-                <div class="controls">
-                    <% 
-                        var person_label="";
-                        if(typeof(online_id)!="undefined"){
-                            if(group.name!=null){
-                                person_label = person_name+"("+father_name+")"+"("+group.name+")"+"("+online_id+")";
-                            }
-                            else{
-                                person_label = person_name+"("+father_name+")"+"("+online_id+")";
-                            }
-                        }
-                        else{
-                            person_label = person_name+"("+father_name+")"
-                        }
-                    %>
-                    <input type="text" class="form-control" id="person_row<%=index%>" name="person_name<%=index%>" value = "<%=person_label%>" disabled>
-                </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2"><b>Farmer Family</b></label>
+            <div class="col-sm-4">
+                <select id = "id_group" name="group" class = "chosen-select form-control">
+                </select>
             </div>
-        </td>
-        <td>
-            <div class="form-group">
-                <div class="controls">
-                    <select id = "topic<%=index%>" name="topic<%=index%>" class="chosen-select form-control" required>
-                        <option value>--------</option>
-                        <% 
-                        if(typeof(videos_seen)!="undefined"){ _.each(videos_seen, function(vid) {
-                            if(typeof(expressed_adoption_video)!="undefined" && vid.id == expressed_adoption_video.id){
-                             %> 
-                            <option selected="selected" value= "<%= vid.id%>"><%= vid.topic_name %></option> 
-                            <%}else{%>
-                            <option value= "<%= vid.id%>"><%= vid.topic_name %></option> 
-                        <%}});}%>    
-                    </select>
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2"><b>Topic</b></label>
+            <div class="col-sm-4">
+                <select id = "id_topic" name="topic" class = "chosen-select form-control">
+                </select>
             </div>
-        </td>
-        <td>
-            <div class="form-group">
-                <div class="controls">
-                    <input type="text" class="date-picker input-sm inl_date form-control" id="date_of_adoption<%=index%>" name="date_of_adoption<%=index%>" required validateDate>
-                </div>
+        </div>
+        <div class="form-group"> 
+            <label class="control-label col-sm-2">Date</label>
+            <div class="col-sm-4">
+                <input class="date-picker form-control" id="date_of_adoption" type="text" placeholder="YYYY-MM-DD" name="date_of_adoption">  
             </div>
-        </td>
+        </div>  
         
-    </tr>
+    </fieldset>
 </script>
 
 <!--////////////////////////////////////////////////// ADOPTION ADD/EDIT TEMPLATES END ///////////////////////////////////////////////-->
@@ -987,24 +877,11 @@
                         <option value="">---------- </option>
                     </select>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label dis-block col-sm-2">Facilitator</label>
-                <div class="col-sm-4">
-                    <select id = "id_facilitator" name="facilitator" class="chosen-select form-control">
-                        <option selected="selected" value="">
-                            ---------
-                        </option>
-                    </select>
-                </div>
             </div>                     
             <div class="form-group">
                 <label class="control-label dis-block col-sm-2">Production Team</label>
                 <div class="col-sm-4">
-                    <select id = "id_production_team" name="production_team" class="chosen-select form-control">
-                        <option selected="selected" value="">
-                            ---------
-                        </option>                    
+                    <select size="20" class="chosen-select form-control" id = "id_production_team" name="production_team" multiple>
                     </select>
                 </div>
             </div>
@@ -1051,20 +928,14 @@
                         <option value="" selected="selected">
                             ---------
                         </option>
-                        <option value="Storyboard">
-                            Storyboard
+                        <option value="Dissemination">
+                            Dissemination
                         </option>
-                        <option value="Filming">
-                            Filming
+                        <option value="Dissemination-Training">
+                            Dissemination-Training
                         </option>
-                        <option value="Post Production">
-                            Post Production
-                        </option>
-                        <option value="Waiting for Approval">
-                            Waiting for Approval
-                        </option>
-                        <option value="Approved">
-                            Approved
+                        <option value="Video Production Training">
+                            Video Production Training
                         </option>
                     </select>
                 </div>

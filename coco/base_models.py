@@ -39,11 +39,9 @@ ACTORS = (
 )
 
 VIDEO_STATUS = (
-        ('Storyboard', 'Storyboard'),
-        ('Filming', 'Filming'),
-        ('Post Production', 'Post Production'),
-        ('Waiting for Approval', 'Waiting for Approval'),
-        ('Approved', 'Approved'),
+        ('Dissemination', 'Storyboard'),
+        ('Dissemination-Training', 'Filming'),
+        ('Video Production Training', 'Post Production'),
 )
 
 RELATION_CHOICES = (

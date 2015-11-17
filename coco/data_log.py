@@ -31,7 +31,7 @@ def save_log(sender, **kwargs ):
     elif sender == "Animator" or sender == 'Language' or sender == 'NonNegotiable' or sender == 'Topic':
         village_id = None
     elif sender == "PersonAdoptPractice":
-        village_id = instance.person.village.id
+        village_id = instance.group.village.id
     else:
         village_id = instance.village.id
     partner_id = None if sender is "Village" or 'Language' or 'NonNegotiable' or 'Topic' else instance.partner.id

@@ -24,8 +24,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(serialize=False, primary_key=True)),
                 ('old_coco_id', models.BigIntegerField(null=True, editable=False)),
                 ('date_of_adoption', models.DateField()),
-                ('partner', models.ForeignKey(verbose_name=b'company', to='programs.Partner')),
-                ('person', models.ForeignKey(to='people.Person')),
+                ('group', models.ForeignKey(to='people.PersonGroup')),
+                ('partner', models.ForeignKey(verbose_name=b'Supply Partner', to='programs.Partner')),
                 ('topic', models.ForeignKey(to='videos.Topic')),
                 ('user_created', models.ForeignKey(related_name='activities_personadoptpractice_created', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
                 ('user_modified', models.ForeignKey(related_name='activities_personadoptpractice_related_modified', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
@@ -65,10 +65,10 @@ class Migration(migrations.Migration):
                 ('animator', models.ForeignKey(verbose_name=b'Field Officer', to='people.Animator')),
                 ('farmer_groups_targeted', models.ManyToManyField(to='people.PersonGroup', verbose_name=b'Farmer Families')),
                 ('farmers_attendance', models.ManyToManyField(to='people.Person', null=b'False', through='activities.PersonMeetingAttendance', blank=b'False')),
-                ('partner', models.ForeignKey(verbose_name=b'company', to='programs.Partner')),
+                ('partner', models.ForeignKey(verbose_name=b'Supply Partner', to='programs.Partner')),
                 ('user_created', models.ForeignKey(related_name='activities_screening_created', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
                 ('user_modified', models.ForeignKey(related_name='activities_screening_related_modified', blank=True, editable=False, to=settings.AUTH_USER_MODEL, null=True)),
-                ('videoes_screened', models.ManyToManyField(to='videos.Video')),
+                ('videoes_screened', models.ManyToManyField(to='videos.Video', verbose_name=b'Videos Screened')),
                 ('village', models.ForeignKey(to='geographies.Village')),
             ],
             options={
@@ -99,6 +99,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='personadoptpractice',
-            unique_together=set([('person', 'topic', 'date_of_adoption')]),
+            unique_together=set([('group', 'topic', 'date_of_adoption')]),
         ),
     ]

@@ -5,11 +5,10 @@ from coco.base_models import CocoModel
 class Partner(CocoModel):
     id = models.AutoField(primary_key=True)
     old_coco_id = models.BigIntegerField(editable=False, null=True, db_index=True)
-    partner_name = models.CharField('company', max_length=100)
+    partner_name = models.CharField('Supply Partner', max_length=100)
     date_of_association = models.DateField(null=True, blank=True)
     class Meta:
-        verbose_name = 'Company'
-        verbose_name_plural = 'Companies'
+        verbose_name = 'Supply Partner'
     
     def __unicode__(self):
         return self.partner_name

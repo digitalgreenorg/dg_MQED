@@ -735,7 +735,7 @@ function() {
                 animator: "Mediator is required",
                 village:"Village is required",
                 videoes_screened:"Videos screened is required",
-                farmer_groups_targeted: "Groups attended is required"
+                farmer_groups_targeted: "Farmer fmailies attended is required"
             },
 
             highlight: function(element, errorClass, validClass) {
@@ -762,17 +762,17 @@ function() {
 
     var adoption_configs = {
         'page_header': 'Adoption',
-        'add_template_name': 'adoption_add_template',
-        'edit_template_name': 'adoption_edit_template',
+        'add_template_name': 'adoption_add_edit_template',
+        'edit_template_name': 'adoption_add_edit_template',
         'rest_api_url': '/coco/api/v2/adoption/',
         'entity_name': 'adoption',
         'inc_table_name': 'personadoptpractice',
-        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Date','element':'date_of_adoption'},{'header':'Person ID','element':'person.online_id'},{'header':'Person','element':'person.person_name'},{'header':'Farmer Family','element':'group.name'},{'header':'Village','element':'village.village_name'},{'header':'Topic','element':'topic.topic_name'}],
-        'unique_together_fields': ['person.id', 'topic.id', 'date_of_adoption'],
+        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Date','element':'date_of_adoption'},{'header':'Farmer Family ID','element':'group.online_id'},{'header':'Farmer Family','element':'group.name'},{'header':'Village','element':'village.village_name'},{'header':'Topic','element':'topic.topic_name'}],
+        'unique_together_fields': ['group.id', 'topic.id', 'date_of_adoption'],
         form_field_validation: {
             ignore: [],
             rules: {
-                person: {
+                group: {
                     required: true,
                     
                 },
@@ -782,17 +782,23 @@ function() {
                 date_of_adoption: {
                     required: true,
                     validateDate: true
-                }
+                },
+                animator: {
+                    required : true,
+                },
             },
             messages: {
-                person: {
-                    required: "person is required"
+                group: {
+                    required: "Farmer Family is required"
                 },
                 topic: {
                     required: "topic is required"
                 },
                 date_of_adoption: {
                     required: "Date of Adoption is required"
+                },
+                animator: {
+                    required: "Field officer is required"
                 }
             },
             highlight: function(element, errorClass, validClass) {
@@ -816,102 +822,41 @@ function() {
             },
             display: "block"
         },
-        add: {
-            'foreign_entities': {
+        
+        'foreign_entities': {
+            'village': {
                 'village': {
-                    'village': {
-                        'placeholder': 'id_village',
-                        'name_field': 'village_name'
-                    },
+                    'placeholder': 'id_village',
+                    'name_field': 'village_name'
                 },
-                'group': {
-                    'group': {
-                        'placeholder': 'id_group',
-                        'name_field': 'name',
-                        'dependency': [{
-                            'source_form_element': 'village',
-                            'dep_attr': 'village'
-                        }]
-                    }
-                },
-                'person': {
-                    float_person: {
-                        'placeholder': 'id_person',
-                        'name_field': 'person_name',
-                        'name_field_father_name':'father_name',
-                        'name_field_extra_info':'group',
-                        'name_field_group_name':'name',
-                        'name_field_person_id':'online_id',
-                        'dependency': [{
-                            'source_form_element': 'village',
-                            'dep_attr': 'village'
-                        }],
-                    },
-                    farmers_attendance: {
-                        dependency: [{
-                            'source_form_element': 'group',
-                            'dep_attr': 'group'
-                        }, {
-                            'source_form_element': 'float_person',
-                            'dep_attr': 'id'
-                        }],
-                        id_field: "person_id", // for convert_namespace conversion      
-                        'expanded': { // won't be denormalised, wud be converted offline to online, render wud use a template declared and nt options template, any field to be denormalised or converted offline to online can be declared - this shd be clubbed and put as foreign entity of expanded.  
-                            template: 'adoption_inline',
-                            placeholder: 'bulk'
-                        }
-                    }
+            },
+            'mediator': {
+                'animator': {
+                    'placeholder': 'id_animator',
+                    'name_field': 'name',
+                    'dependency': [{
+                        'source_form_element': 'village',
+                        'dep_attr': 'assigned_villages'
+                    }]
                 }
             },
-            'bulk': {
-                foreign_fields: { //foreign fields in the individual objects
-                    "topic": {
-                        topic: {
-                            'name_field': 'topic_name'
-                        }
-                    },
-                    "person": {
-                        person: {
-                            'name_field': 'person_name'
-                        }
-                    },
-                    village: {
-                        village:{
-                            'name_field': 'village_name'
-                        }
-                    },
-                    group: {
-                        group:{
-                            'name_field': 'name'
-                        }
-                    }
-                },
-                borrow_fields: ['village', 'group']
-            }
-        },
-        edit: {
-            'foreign_entities': {
-                'person': {
-                    'person': {
-                        'placeholder': 'id_person',
-                        'name_field': 'person_name'
-                    },
-                },
+            'group': {
+                'group': {
+                    'placeholder': 'id_group',
+                    'name_field': 'name',
+                    'dependency': [{
+                        'source_form_element': 'village',
+                        'dep_attr': 'village'
+                    }]
+                }
+            },
+            'topic': {
                 'topic': {
-                    'topic': {
-                        'placeholder': 'id_topic',
-                        // 'sub_attr': 'videos_seen',
-                        'name_field': 'topic_name',
-                        'dependency': [{
-                            'source_form_element': 'person',
-                            'dep_attr': 'id',
-                            'src_attr': 'videos_seen',
-                        }]
-                    }
+                    'placeholder' : 'id_topic',
+                    'name_field' : 'topic_name'
                 }
             }
-        }
-
+        },
     };
 
     var person_configs = {
