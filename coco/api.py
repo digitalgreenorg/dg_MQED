@@ -553,18 +553,21 @@ class PersonResource(BaseResource):
 class PersonAdoptVideoResource(BaseResource):
     group = fields.ForeignKey(PersonGroupResource, 'group')
     topic = fields.ForeignKey(TopicResource, 'topic')
+    animator = fields.ForeignKey(MediatorResource,'animator')
     partner = fields.ForeignKey(PartnerResource, 'partner')
     village = fields.DictField(null = True)
     class Meta:
         max_limit = None
-        queryset = PersonAdoptPractice.objects.prefetch_related('group','topic', 'partner')
+        queryset = PersonAdoptPractice.objects.prefetch_related('animator','group','topic', 'partner')
         resource_name = 'adoption'
         authentication = SessionAuthentication()
         authorization = VillagePartnerAuthorization('group__village__in')
         validation = ModelFormValidation(form_class = PersonAdoptPracticeForm)
         always_return_data = True
         excludes = ['time_created', 'time_modified']
-    #dehydrate_topic = partial(foreign_key_to_id, field_name='topic',sub_field_names=['id','topic_name'])
+    dehydrate_animator = partial(foreign_key_to_id, field_name='animator', sub_field_names=['id','name'])
+    dehydrate_topic = partial(foreign_key_to_id, field_name='topic',sub_field_names=['id','topic_name'])
+    hydrate_animator = partial(dict_to_foreign_uri, field_name='animator', resource_name='mediator')
     hydrate_topic = partial(dict_to_foreign_uri, field_name='topic')
     hydrate_group = partial(dict_to_foreign_uri, field_name='group')
     hydrate_partner = partial(assign_partner)
@@ -574,10 +577,6 @@ class PersonAdoptVideoResource(BaseResource):
 
     def dehydrate_village(self, bundle):
         return {'id': bundle.obj.group.village.id, 'village_name': bundle.obj.group.village.village_name}
-
-    def dehydrate_topic(self, bundle):
-        return {'id': bundle.obj.topic.id, 'online_id': bundle.obj.topic.id, 'topic_name': bundle.obj.topic.topic_name}
-        
 
 class LanguageResource(ModelResource):    
     class Meta:

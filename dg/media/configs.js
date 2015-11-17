@@ -799,7 +799,7 @@ function() {
                 },
                 animator: {
                     required: "Field officer is required"
-                }
+                },
             },
             highlight: function(element, errorClass, validClass) {
                 $(element)
@@ -855,8 +855,8 @@ function() {
                     'placeholder' : 'id_topic',
                     'name_field' : 'topic_name'
                 }
-            }
-        },
+            },
+        }
     };
 
     var person_configs = {
