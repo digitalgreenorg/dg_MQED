@@ -140,18 +140,42 @@ function() {
         'sort_field': 'name',
         'inc_table_name': 'animator',
         'foreign_entities': {
+            'state': {
+                "state": {
+                    'placeholder': 'id_state',
+                    'name_field': 'state_name'
+                }, 
+            },
+            'district': {
+                "district": {
+                    'placeholder': 'id_district',
+                    'name_field': 'district_name',
+                    'dependency': [{
+                        'source_form_element': 'state',
+                        'dep_attr': 'state',
+                    }]
+                }, 
+            },
+            'block': {
+                "block": {
+                    'placeholder': 'id_block',
+                    'name_field': 'block_name',
+                    'dependency': [{
+                        'source_form_element': 'district',
+                        'dep_attr': 'district'
+                    }]
+                }, 
+            },
             'village': {
                 "assigned_villages": {
                     'placeholder': 'id_ass_villages',
-                    'name_field': 'village_name'
+                    'name_field': 'village_name',
+                    'dependency': [{
+                        'source_form_element': 'block',
+                        'dep_attr': 'block'
+                    }]
                 }, //name of html element in form/ attribute name in json: {placeholder: "id of html element in form", name_field: "attribute in foreign entity's json "} 
             },
-            district: {
-                district :{
-                    placeholder : 'id_district',
-                    name_field : 'district_name' 
-                }
-            }
         },
         'form_field_validation': {
             ignore: [],
@@ -168,8 +192,7 @@ function() {
                     digits: true,
                     maxlength: 10
                 },
-                assigned_villages: "required",
-                district: "required"
+                assigned_villages: "required"
             },
             messages: {
                 name: {
@@ -184,8 +207,7 @@ function() {
                     digits: 'Phone number should contain only digits',
                     maxlength: "Phone number should not contain more than 10 digits"
                 },
-                assigned_villages: "Assigned villages are required",
-                district: "District is required"
+                assigned_villages: "Assigned villages are required"
             },
 
             highlight: function(element, errorClass, validClass) {
@@ -247,11 +269,42 @@ function() {
                     }]
                 },
             },
+            'state': {
+                "state": {
+                    'placeholder': 'id_state',
+                    'name_field': 'state_name'
+                }, 
+            },
+            'district': {
+                "district": {
+                    'placeholder': 'id_district',
+                    'name_field': 'district_name',
+                    'dependency': [{
+                        'source_form_element': 'state',
+                        'dep_attr': 'state',
+                    }]
+                }, 
+            },
+            'block': {
+                "block": {
+                    'placeholder': 'id_block',
+                    'name_field': 'block_name',
+                    'dependency': [{
+                        'source_form_element': 'district',
+                        'dep_attr': 'district'
+                    }]
+                }, 
+            },
             'village': {
                 "village": {
                     'placeholder': 'id_village',
-                    'name_field': 'village_name'
+                    'name_field': 'village_name',
+                    'dependency': [{
+                        'source_form_element': 'block',
+                        'dep_attr': 'block'
+                }]
                 },
+                
             },
             'language': {
                 "language": {
@@ -453,6 +506,26 @@ function() {
         }
     };
 
+    var block_configs = {
+        'rest_api_url': '/coco/api/v2/block/',
+        'entity_name': 'block',
+        'sort_field': 'block_name',
+        'dashboard_display': {
+            listing: false,
+            add: false
+        }
+    };
+
+    var state_configs = {
+        'rest_api_url': '/coco/api/v2/state/',
+        'entity_name': 'state',
+        'sort_field': 'state_name',
+        'dashboard_display': {
+            listing: false,
+            add: false
+        }
+    };
+
     var group_configs = {
         'page_header': 'Farmer Family',
         'add_template_name': 'group_add_edit_template',
@@ -464,10 +537,41 @@ function() {
         'unique_together_fields': ['name', 'village.id'],
         'sort_field': 'name',
         'foreign_entities': {
+            'state': {
+                "state": {
+                    'placeholder': 'id_state',
+                    'name_field': 'state_name'
+                }, 
+            },
+            'district': {
+                "district": {
+                    'placeholder': 'id_district',
+                    'name_field': 'district_name',
+                    'dependency': [{
+                        'source_form_element': 'state',
+                        'dep_attr': 'state',
+                    }]
+                }, 
+            },
+            'block': {
+                "block": {
+                    'placeholder': 'id_block',
+                    'name_field': 'block_name',
+                    'dependency': [{
+                        'source_form_element': 'district',
+                        'dep_attr': 'district'
+                    }]
+                }, 
+            },
             'village': {
                 'village': {
                     'placeholder': 'id_village',
-                    'name_field': 'village_name'
+                    'name_field': 'village_name',
+                    'dependency': [{
+                        'source_form_element': 'block',
+                        'dep_attr': 'block'
+                    }]
+
                 },
             },
         },
@@ -616,10 +720,40 @@ function() {
             };
         },
         'foreign_entities': {
+            'state': {
+                "state": {
+                    'placeholder': 'id_state',
+                    'name_field': 'state_name'
+                }, 
+            },
+            'district': {
+                "district": {
+                    'placeholder': 'id_district',
+                    'name_field': 'district_name',
+                    'dependency': [{
+                        'source_form_element': 'state',
+                        'dep_attr': 'state',
+                    }]
+                }, 
+            },
+            'block': {
+                "block": {
+                    'placeholder': 'id_block',
+                    'name_field': 'block_name',
+                    'dependency': [{
+                        'source_form_element': 'district',
+                        'dep_attr': 'district'
+                    }]
+                }, 
+            },
             'village': {
                 'village': {
                     'placeholder': 'id_village',
-                    'name_field': 'village_name'
+                    'name_field': 'village_name',
+                    'dependency': [{
+                        'source_form_element': 'block',
+                        'dep_attr': 'block'
+                    }]
                 },
             },
             'video': {
@@ -824,10 +958,40 @@ function() {
         },
         
         'foreign_entities': {
+            'state': {
+                "state": {
+                    'placeholder': 'id_state',
+                    'name_field': 'state_name'
+                }, 
+            },
+            'district': {
+                "district": {
+                    'placeholder': 'id_district',
+                    'name_field': 'district_name',
+                    'dependency': [{
+                        'source_form_element': 'state',
+                        'dep_attr': 'state',
+                    }]
+                }, 
+            },
+            'block': {
+                "block": {
+                    'placeholder': 'id_block',
+                    'name_field': 'block_name',
+                    'dependency': [{
+                        'source_form_element': 'district',
+                        'dep_attr': 'district'
+                    }]
+                }, 
+            },
             'village': {
                 'village': {
                     'placeholder': 'id_village',
-                    'name_field': 'village_name'
+                    'name_field': 'village_name',
+                    'dependency': [{
+                        'source_form_element': 'block',
+                        'dep_attr': 'block'
+                    }]
                 },
             },
             'mediator': {
@@ -867,10 +1031,40 @@ function() {
         'rest_api_url': '/coco/api/v2/person/',
         'entity_name': 'person',
         'foreign_entities': {
+            'state': {
+                "state": {
+                    'placeholder': 'id_state',
+                    'name_field': 'state_name'
+                }, 
+            },
+            'district': {
+                "district": {
+                    'placeholder': 'id_district',
+                    'name_field': 'district_name',
+                    'dependency': [{
+                        'source_form_element': 'state',
+                        'dep_attr': 'state',
+                    }]
+                }, 
+            },
+            'block': {
+                "block": {
+                    'placeholder': 'id_block',
+                    'name_field': 'block_name',
+                    'dependency': [{
+                        'source_form_element': 'district',
+                        'dep_attr': 'district'
+                    }]
+                }, 
+            },
             'village': {
                 'village': {
                     'placeholder': 'id_village',
-                    'name_field': 'village_name'
+                    'name_field': 'village_name',
+                    'dependency': [{
+                        'source_form_element': 'block',
+                        'dep_attr': 'block'
+                    }]
                 },
             },
             'group': {
@@ -1030,6 +1224,8 @@ function() {
         language: language_configs,
         district: district_configs,
         nonnegotiable: nonnegotiable_configs,
+        block: block_configs,
+        state: state_configs,
         misc: misc
     }
 

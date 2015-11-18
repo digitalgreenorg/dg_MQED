@@ -79,9 +79,9 @@ class AnimatorAssignedVillages(admin.StackedInline):
     model = AnimatorAssignedVillage
 
 class AnimatorAdmin(admin.ModelAdmin):
-    fields = ('name','father_name','gender','trained_in_video_production','trained_in_video_screening','phone_no','partner','district')
+    fields = ('name','father_name','gender','trained_in_video_production','trained_in_video_screening','phone_no','partner')
     inlines = [AnimatorAssignedVillages]
-    list_display = ('name', 'partner', 'district',)
+    list_display = ('name', 'partner')
     search_fields = ['name', 'partner__partner_name']
 
 class PersonGroupInline(admin.TabularInline):

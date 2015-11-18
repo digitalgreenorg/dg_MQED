@@ -2,7 +2,7 @@ from django.conf.urls import include, patterns, url
 from django.views.generic import TemplateView
 from tastypie.api import Api
 
-from api import DistrictResource, LanguageResource, MediatorResource, NonNegotiableResource, PartnerResource, PersonAdoptVideoResource, PersonGroupResource, PersonResource, ScreeningResource, VideoResource, VillageResource, TopicResource
+from api import DistrictResource, LanguageResource, MediatorResource, NonNegotiableResource, PartnerResource, PersonAdoptVideoResource, PersonGroupResource, PersonResource, ScreeningResource, VideoResource, VillageResource, TopicResource, StateResource, BlockResource
 from views import coco_v2, debug, login, logout, record_full_download_time, reset_database_check
 
 v1_api = Api(api_name='v2')
@@ -11,6 +11,8 @@ v1_api.register(DistrictResource())
 v1_api.register(LanguageResource())
 v1_api.register(PartnerResource())
 v1_api.register(VillageResource())
+v1_api.register(StateResource())
+v1_api.register(BlockResource())
 
 v1_api.register(MediatorResource())
 v1_api.register(PersonAdoptVideoResource())

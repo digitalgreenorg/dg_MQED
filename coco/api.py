@@ -10,7 +10,7 @@ from tastypie.resources import ModelResource, NOT_AVAILABLE
 from tastypie.validation import FormValidation
 
 from activities.models import Screening, PersonAdoptPractice, PersonMeetingAttendance
-from geographies.models import Village, District, State
+from geographies.models import Village, Block, District, State
 from programs.models import Partner
 from people.models import Animator, AnimatorAssignedVillage, Person, PersonGroup
 from videos.models import Video, Topic, Language, NonNegotiable
@@ -147,10 +147,9 @@ def get_user_mediators(user_id):
     coco_user = CocoUser.objects.get(user_id = user_id)
     villages = coco_user.get_villages()
     partner = get_user_partner_id(user_id)
-    user_districts = District.objects.filter(block__village__in = villages).distinct().values_list('id', flat=True)
-    mediators_from_same_district = Animator.objects.filter(district__in = user_districts, partner_id = partner).distinct().values_list('id', flat = True)
+    mediators_from_same_partner = Animator.objects.filter(partner_id = partner).distinct().values_list('id', flat = True)
         
-    return mediators_from_same_district
+    return mediators_from_same_partner
 
 def assign_partner(bundle):
     partner_id = get_user_partner_id(bundle.request.user.id)
@@ -258,20 +257,17 @@ class MediatorResource(BaseResource):
     mediator_label = fields.CharField()
     assigned_villages = fields.ListField()
     partner = fields.ForeignKey('coco.api.PartnerResource', 'partner')
-    district = fields.ForeignKey('coco.api.DistrictResource', 'district', null=True)
     class Meta:
         max_limit = None
         authentication = SessionAuthentication()
-        queryset = Animator.objects.prefetch_related('assigned_villages', 'district', 'partner').all()
+        queryset = Animator.objects.prefetch_related('assigned_villages', 'partner').all()
         resource_name = 'mediator'
         authorization = MediatorAuthorization()
         validation = ModelFormValidation(form_class=AnimatorForm)
         always_return_data = True
         excludes = ['time_created', 'time_modified' ]
     dehydrate_partner = partial(foreign_key_to_id, field_name='partner',sub_field_names=['id','partner_name'])
-    dehydrate_district = partial(foreign_key_to_id, field_name='district',sub_field_names=['id','district_name'])
     hydrate_assigned_villages = partial(dict_to_foreign_uri_m2m, field_name='assigned_villages', resource_name = 'village')
-    hydrate_district = partial(dict_to_foreign_uri, field_name ='district')
     
     def dehydrate_assigned_villages(self, bundle):
         return [{'id': vil.id, 'village_name': vil.village_name} for vil in set(bundle.obj.assigned_villages.all()) ]
@@ -325,6 +321,9 @@ class VillageResource(ModelResource):
     state_name = fields.CharField('block__district__state__state_name')
     country_name = fields.CharField('block__district__state__country__country_name')
     
+    block = fields.ForeignKey('coco.api.BlockResource','block')
+    dehydrate_block = partial(foreign_key_to_id, field_name='block', sub_field_names=['id','block_name'])
+    hydrate_block = partial(dict_to_foreign_uri, field_name ='block', resource_name='block')
     class Meta:
         max_limit = None
         queryset = Village.objects.select_related('block__district__state__country').all()
@@ -333,12 +332,37 @@ class VillageResource(ModelResource):
         authorization = VillageAuthorization('id__in')
         always_return_data = True
 
+
 class DistrictResource(ModelResource):
+    state = fields.ForeignKey('coco.api.StateResource', 'state')
+    dehydrate_state = partial(foreign_key_to_id, field_name='state', sub_field_names=['id','state_name'])
+    hydrate_state = partial(dict_to_foreign_uri, field_name ='state')
     class Meta:
         queryset = District.objects.all()
         resource_name = 'district'
         authentication = SessionAuthentication()
         authorization = VillageAuthorization('block__village__id__in')
+        max_limit = None
+
+class BlockResource(ModelResource):
+    district = fields.ForeignKey('coco.api.DistrictResource', 'district')
+    
+    dehydrate_district = partial(foreign_key_to_id, field_name='district', sub_field_names=['id','district_name'])
+    hydrate_district = partial(dict_to_foreign_uri, field_name ='district')
+    class Meta:
+        queryset = Block.objects.all()
+        resource_name = 'block'
+        authentication = SessionAuthentication()
+        authorization = VillageAuthorization('village__id__in')
+        max_limit = None
+        always_return_data = True
+
+class StateResource(ModelResource):
+    class Meta:
+        queryset = State.objects.all()
+        resource_name = 'state'
+        authentication = SessionAuthentication()
+        authorization = VillageAuthorization('district__block__village__id__in')
         max_limit = None
 
 class VideoResource(BaseResource):

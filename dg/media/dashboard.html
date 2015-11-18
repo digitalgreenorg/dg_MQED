@@ -486,15 +486,29 @@
                     <option value='F'>Female</option> 
                 </select>
             </div>
-        </div> 
+        </div>
         <div class="form-group">
-            <label class="control-label col-sm-2"><b>Village Group</b></label>
-            <div class="col-sm-4">
-                <select name="village_group" class="form-control">
-                    <option value='' selected='selected'>----------</option> 
-                    <option value='Test Group'>Test Group</option> 
-                    <option value='Control Group'>Conrol Group</option> 
-                </select>
+            <label class="control-label col-sm-2">State</label>
+            <div class="col-sm-4"> 
+                <select name="state" id="id_state" class="chosen-select form-control">
+                    <option value='' selected='selected'>---------</option> 
+                </select > 
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">District</label>
+            <div class="col-sm-4"> 
+                <select name="district" id="id_district" class="chosen-select form-control">
+                    <option value='' selected='selected'>---------</option> 
+                </select > 
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Block</label>
+            <div class="col-sm-4"> 
+                <select name="block" id="id_block" class="chosen-select form-control">
+                    <option value='' selected='selected'>---------</option> 
+                </select > 
             </div>
         </div>
         <div class="form-group"> 
@@ -525,14 +539,7 @@
                 </select>
             </div>
         </div>
-        <div class="form-group"> 
-            <label class="control-label col-sm-2"><b>District</b></label>
-            <div class="col-sm-4">
-                <select id = "id_district" name="district" class = "chosen-select form-control">
-               
-                </select>
-            </div>
-        </div>
+        
         <div class="form-group">
             <label class="control-label col-sm-2 notbold">Phone number</label>
             <div class="col-sm-4">
@@ -568,6 +575,30 @@
                         <input class="time-picker form-control" id="end_time_picker" type="text" placeholder="HH:MM" name="end_time">
                     </div>
                     <div class="help-block col-sm-4">Use 24 hour format</div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">State</label>
+                    <div class="col-sm-4"> 
+                        <select name="state" id="id_state" class="chosen-select form-control">
+                            <option value='' selected='selected'>---------</option> 
+                        </select > 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">District</label>
+                    <div class="col-sm-4"> 
+                        <select name="district" id="id_district" class="chosen-select form-control">
+                            <option value='' selected='selected'>---------</option> 
+                        </select > 
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Block</label>
+                    <div class="col-sm-4"> 
+                        <select name="block" id="id_block" class="chosen-select form-control">
+                            <option value='' selected='selected'>---------</option> 
+                        </select > 
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2">Village</label>
@@ -706,6 +737,30 @@
         <legend>Add Adoption</legend>
         <p class="bold-helptext"> All fields in bold are required</p>
         <div class="form-group">
+            <label class="control-label col-sm-2">State</label>
+            <div class="col-sm-4"> 
+                <select name="state" id="id_state" class="chosen-select form-control">
+                    <option value='' selected='selected'>---------</option> 
+                </select > 
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">District</label>
+            <div class="col-sm-4"> 
+                <select name="district" id="id_district" class="chosen-select form-control">
+                    <option value='' selected='selected'>---------</option> 
+                </select > 
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Block</label>
+            <div class="col-sm-4"> 
+                <select name="block" id="id_block" class="chosen-select form-control">
+                    <option value='' selected='selected'>---------</option> 
+                </select > 
+            </div>
+        </div>       
+        <div class="form-group">
             <label class="control-label col-sm-2"><b>Village</b></label>
             <div class="col-sm-4">
                 <select id = "id_village" name="village" class = "chosen-select form-control">
@@ -778,6 +833,30 @@
                 </select>
             </div>
         </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">State</label>
+            <div class="col-sm-4"> 
+                <select name="state" id="id_state" class="chosen-select form-control">
+                    <option value='' selected='selected'>---------</option> 
+                </select > 
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">District</label>
+            <div class="col-sm-4"> 
+                <select name="district" id="id_district" class="chosen-select form-control">
+                    <option value='' selected='selected'>---------</option> 
+                </select > 
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Block</label>
+            <div class="col-sm-4"> 
+                <select name="block" id="id_block" class="chosen-select form-control">
+                    <option value='' selected='selected'>---------</option> 
+                </select > 
+            </div>
+        </div>       
         <div class="form-group"> 
             <label class="control-label col-sm-2"><b>Village</b></label>
             <div class="col-sm-4">
@@ -868,6 +947,30 @@
                 <label class="col-sm-2 control-label notbold">Summary</label>
                 <div class="col-sm-4">
                     <textarea name="summary" class="input-xlarge form-control" rows="4" placeholder="Summary"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">State</label>
+                <div class="col-sm-4"> 
+                    <select name="state" id="id_state" class="chosen-select form-control">
+                        <option value='' selected='selected'>---------</option> 
+                    </select > 
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">District</label>
+                <div class="col-sm-4"> 
+                    <select name="district" id="id_district" class="chosen-select form-control">
+                        <option value='' selected='selected'>---------</option> 
+                    </select > 
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Block</label>
+                <div class="col-sm-4"> 
+                    <select name="block" id="id_block" class="chosen-select form-control">
+                        <option value='' selected='selected'>---------</option> 
+                    </select > 
                 </div>
             </div>
             <div class="form-group">
@@ -1026,6 +1129,30 @@
                 <label class="control-label col-sm-2">Father Name</label>
                 <div class="col-sm-4"> 
                     <input type="text" name="father_name" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">State</label>
+                <div class="col-sm-4"> 
+                    <select name="state" id="id_state" class="chosen-select form-control">
+                        <option value='' selected='selected'>---------</option> 
+                    </select > 
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">District</label>
+                <div class="col-sm-4"> 
+                    <select name="district" id="id_district" class="chosen-select form-control">
+                        <option value='' selected='selected'>---------</option> 
+                    </select > 
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Block</label>
+                <div class="col-sm-4"> 
+                    <select name="block" id="id_block" class="chosen-select form-control">
+                        <option value='' selected='selected'>---------</option> 
+                    </select > 
                 </div>
             </div>
             <div class="form-group"> 

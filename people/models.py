@@ -14,7 +14,6 @@ class Animator(CocoModel):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     partner = models.ForeignKey(Partner, verbose_name='Supply Partner')
     phone_no = models.CharField(max_length=100, blank=True)
-    district = models.ForeignKey(District)
     assigned_villages = models.ManyToManyField(Village, related_name='assigned_villages', through='AnimatorAssignedVillage', null=True, blank=True)
     trained_in_video_production = models.CharField(max_length=1, choices=YesNo_CHOICES)
     trained_in_video_screening = models.CharField(max_length=1, choices=YesNo_CHOICES)
@@ -22,7 +21,7 @@ class Animator(CocoModel):
 
     class Meta:
         verbose_name = "Field Officer"
-        unique_together = ("name", "gender", "partner", "district")
+        unique_together = ("name", "father_name", "gender", "partner")
 
     def get_village(self):
         return None
@@ -31,7 +30,7 @@ class Animator(CocoModel):
         return self.partner.id
 
     def __unicode__(self):
-        return  u'%s (%s)' % (self.name, self.district)
+        return  u'%s' % (self.name)
 
 post_save.connect(save_log, sender=Animator)
 pre_delete.connect(delete_log, sender=Animator)
@@ -40,7 +39,6 @@ pre_delete.connect(delete_log, sender=Animator)
 class AnimatorAssignedVillage(CocoModel):
     id = models.AutoField(primary_key=True)
     animator = models.ForeignKey(Animator)
-    village_group = models.CharField(max_length=100, choices=VILLAGE_GROUPS)
     village = models.ForeignKey(Village)
     start_date = models.DateField(null=True, blank=True)
 
