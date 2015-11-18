@@ -38,12 +38,35 @@ ACTORS = (
         ('G', 'Group'),
 )
 
-SUITABLE_FOR = (
-        (1, 'Dissemination'),
-        (2, 'Video Production Training'),
-        (3, 'Dissemination Training'),
-        (4, 'Nothing'),
-        (5, 'Pending for Approval'),
+VIDEO_STATUS = (
+        ('Dissemination', 'Storyboard'),
+        ('Dissemination-Training', 'Filming'),
+        ('Video Production Training', 'Post Production'),
+)
+
+RELATION_CHOICES = (
+    ('Family Member','Family Member'),
+    ('Hired Labourer','Hired Labourer'),
+    ('Other','Other'),
+)
+
+VILLAGE_GROUPS = (
+    ('Test Group', 'Test Group'),
+    ('Control Group', 'Control Group')
+)
+
+YesNo_CHOICES = (
+    ('N','No'),
+    ('Y','Yes'),
+)
+
+WOMEN_FEATURED = (
+    ('Farming','Farming'),
+    ('Teaching','Teaching'),
+    ('Making Decisions','Making Decisions'),
+    ('Being Interviwed','Being Interviwed'),
+    ('Other Activities','Other Activities'),
+    ('Does not feature women','Does not feature women'),
 )
 
 

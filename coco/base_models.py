@@ -38,52 +38,35 @@ ACTORS = (
         ('G', 'Group'),
 )
 
-SUITABLE_FOR = (
-        (1, 'Dissemination'),
-        (2, 'Video Production Training'),
-        (3, 'Dissemination Training'),
-        (4, 'Nothing'),
-        (5, 'Pending for Approval'),
+VIDEO_STATUS = (
+        ('Dissemination', 'Storyboard'),
+        ('Dissemination-Training', 'Filming'),
+        ('Video Production Training', 'Post Production'),
 )
 
-ADOPTION_VERIFICATION = (
-    (0, 'Not Checked'),
-    (1, 'Approved'),
-    (2, 'Rejected'),
+RELATION_CHOICES = (
+    ('Family Member','Family Member'),
+    ('Hired Labourer','Hired Labourer'),
+    ('Other','Other'),
 )
 
-SCREENING_OBSERVATION = (
-    (0, 'Not Observed'),
-    (1, 'Observed'),
+VILLAGE_GROUPS = (
+    ('Test Group', 'Test Group'),
+    ('Control Group', 'Control Group')
 )
 
-SCREENING_GRADE = (
-    ('A', 'A'),
-    ('B', 'B'),
-    ('C', 'C'),
-    ('D', 'D'),
+YesNo_CHOICES = (
+    ('N','No'),
+    ('Y','Yes'),
 )
 
-VIDEO_REVIEW = (
-    (0, 'Not Reviewed'),
-    (1, 'Reviewed'),
-)
-
-VIDEO_GRADE = (
-    ('A', 'A'),
-    ('B', 'B'),
-    ('C', 'C'),
-)
-
-VERIFIED_BY = (
-    (0,'Digital Green'),
-    (1,'Partner'),
-    (2,'Third Party'),
-)
-
-REVIEW_BY = (
-    (0,'Digital Green'),
-    (1,'Partner'),
+WOMEN_FEATURED = (
+    ('Farming','Farming'),
+    ('Teaching','Teaching'),
+    ('Making Decisions','Making Decisions'),
+    ('Being Interviwed','Being Interviwed'),
+    ('Other Activities','Other Activities'),
+    ('Does not feature women','Does not feature women'),
 )
 
 NONNEGOTIABLE_OPTION = (

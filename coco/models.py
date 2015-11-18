@@ -30,7 +30,7 @@ class CocoUser(CocoModel):
     id = models.AutoField(primary_key=True)
     old_coco_id = models.IntegerField(editable=False, null=True)
     user = models.OneToOneField(User, related_name="coco_user")
-    partner = models.ForeignKey(Partner, verbose_name='company')
+    partner = models.ForeignKey(Partner, verbose_name='Supply Partner')
     villages = models.ManyToManyField(Village)
     videos = models.ManyToManyField(Video)
 

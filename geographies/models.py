@@ -2,7 +2,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models.signals import pre_delete, post_save
 
-from coco.base_models import CocoModel
+from coco.base_models import CocoModel, VILLAGE_GROUPS
 from coco.data_log import delete_log, save_log
 from libs.geocoder import Geocoder
 from programs.models import Partner
@@ -63,9 +63,12 @@ class District(CocoModel):
 class Block(CocoModel):
     id = models.AutoField(primary_key=True)
     old_coco_id = models.BigIntegerField(editable=False, null=True)
-    block_name = models.CharField(max_length=100, unique='True')
+    block_name = models.CharField('Taluk',max_length=100, unique='True')
     start_date = models.DateField(null=True, blank=True)
     district = models.ForeignKey(District)
+    class Meta:
+        verbose_name = 'Taluk'
+        #verbose_name_plural = 'Blocks'
 
     def __unicode__(self):
         return self.block_name
@@ -74,11 +77,12 @@ class Village(CocoModel):
     id = models.AutoField(primary_key=True)
     old_coco_id = models.BigIntegerField(editable=False, null=True)
     village_name = models.CharField(max_length=100)
-    block = models.ForeignKey(Block)
+    village_group = models.CharField(max_length=100, choices=VILLAGE_GROUPS)
+    block = models.ForeignKey(Block, verbose_name='Taluk')
     start_date = models.DateField(null=True, blank=True)
     latitude = models.CharField(max_length=25, null=True, blank=True)
     longitude = models.CharField(max_length=25, null=True, blank=True)
-    grade = models.CharField(max_length=1, null=True, blank=True)
+    census_code = models.CharField(max_length=1, null=True, blank=True)
     objects = models.Manager() #The default manager
     
     class Meta:

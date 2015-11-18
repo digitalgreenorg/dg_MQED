@@ -61,29 +61,27 @@ class ScreeningAdmin(admin.ModelAdmin):
    
 class NonNegotiablesInline(admin.TabularInline):
     model =  NonNegotiable
-    raw_id_fields = ("video",)
-    extra = 10
+    raw_id_fields = ("topic",)
+    extra = 5
 
 
 class VideoAdmin(admin.ModelAdmin):
-    inlines = [NonNegotiablesInline,]
     fieldsets = [
-                (None, {'fields':['title','video_type','video_production_start_date','video_production_end_date','language','summary', 'partner', 'related_practice']}),
-                (None,{'fields':['village','facilitator','cameraoperator','farmers_shown','actors']}),
-                ('Review', {'fields': ['approval_date','video_suitable_for','youtubeid']}),
+                (None, {'fields':['title','topic','language','summary','village','facilitator','production_team','persons_shown','other_persons_shown','women_featured','approval_date','video_status','youtubeid', 'partner']}),
+                
     ]
-    list_display = ('id', 'title', 'location', 'video_production_end_date')
+    list_display = ('id', 'title')
     search_fields = ['id', 'title', 'partner__partner_name' , 'village__village_name', 'village__block__block_name', 'village__block__district__district_name','village__block__district__state__state_name' ]
     list_filter = ('village__block__district__state__state_name', 'partner__partner_name')
-    raw_id_fields = ('village', 'facilitator', 'cameraoperator', 'farmers_shown', 'related_practice')
+    raw_id_fields = ('village', 'facilitator', 'persons_shown')
 
 class AnimatorAssignedVillages(admin.StackedInline):
     model = AnimatorAssignedVillage
 
 class AnimatorAdmin(admin.ModelAdmin):
-    fields = ('name','gender','phone_no','partner','district')
+    fields = ('name','father_name','gender','trained_in_video_production','trained_in_video_screening','phone_no','partner')
     inlines = [AnimatorAssignedVillages]
-    list_display = ('name', 'partner', 'district',)
+    list_display = ('name', 'partner')
     search_fields = ['name', 'partner__partner_name']
 
 class PersonGroupInline(admin.TabularInline):
@@ -127,8 +125,8 @@ class PersonGroupForm(forms.ModelForm):
 
 class PersonGroupAdmin(admin.ModelAdmin):
     inlines = [PersonInline]
-    list_display = ('group_name','village')
-    search_fields = ['group_name','village__village_name']
+    list_display = ('name','father_name','village')
+    search_fields = ['name','village__village_name']
     form = PersonGroupForm
 
 
@@ -147,14 +145,14 @@ class PersonAdoptPracticeAdmin(admin.ModelAdmin):
         models.TextField: {'widget': Textarea(attrs={'rows':4, 'cols':40})},
     }
     list_display = ('id', 'date_of_adoption', '__unicode__')
-    list_filter = ('date_of_adoption','person__village__block__district__state__state_name', 'partner__partner_name')
-    search_fields = ['user_created__username', 'id', 'person__person_name', 'person__father_name', 'person__village__village_name', 'video__title', 'person__group__group_name','person__village__block__block_name','person__village__block__district__district_name','person__village__block__district__state__state_name']
-    raw_id_fields = ('person', 'video')
+    list_filter = ('date_of_adoption','group__village__block__district__state__state_name', 'partner__partner_name')
+    search_fields = ['user_created__username', 'id', 'group__name', 'group__village__village_name', 'topic__topic_name', 'group__village__block__block_name','group__village__block__district__district_name','group__village__block__district__state__state_name']
+    raw_id_fields = ('group', 'topic')
 
 
 class PersonAdmin(admin.ModelAdmin):
     list_display = ('id', '__unicode__')
-    search_fields = ['person_name','village__village_name','group__group_name']
+    search_fields = ['person_name','village__village_name','group__name']
     raw_id_fields = ('village','group')
 
 class BlockAdmin(admin.ModelAdmin):
@@ -169,27 +167,12 @@ class StateAdmin(admin.ModelAdmin):
     list_display = ('state_name',)
     search_fields = ['state_ name', 'country__country_name']
 
-class PracticesAdmin(admin.ModelAdmin):
-    list_display = ('id', 'practice_sector', 'practice_subject', 'practice_subsector', 'practice_topic', 'practice_subtopic')
-    search_fields = ['id', 'practice_sector__name', 'practice_subject__name', 'practice_subsector__name', 'practice_topic__name', 'practice_subtopic__name']
-
-class PracticeSectorAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-
-class PracticeSubSectorAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-
-class PracticeTopicAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-
-class PracticeSubtopicAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-
-class PracticeSubjectAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-
 class CocoUserAdmin(admin.ModelAdmin):
     form = CocoUserForm
     list_display = ('user','partner','get_villages')
     search_fields = ['user__username']
 
+class TopicAdmin(admin.ModelAdmin):
+    inlines = [NonNegotiablesInline,]
+    search_fields = ['topic_name']
+    

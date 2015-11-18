@@ -120,7 +120,7 @@ function() {
     var village_configs = {
         'page_header': 'Village',
         'rest_api_url': '/coco/api/v2/village/',
-        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Name','element':'village_name'},{'element':'block_name'},{'element':'start_date'},{'header':'State','element':'state_name'}],
+        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Name','element':'village_name'},{'header':'Taluk','element':'block_name'},{'element':'start_date'},{'header':'State','element':'state_name'}],
         'entity_name': 'village',
         'dashboard_display': {
             listing: true,
@@ -130,28 +130,52 @@ function() {
     };
 
     var mediator_configs = {
-        'page_header': 'Mediator',
+        'page_header': 'Field Officer',
         'add_template_name': 'mediator_add_edit_template',
         'edit_template_name': 'mediator_add_edit_template',
         'rest_api_url': '/coco/api/v2/mediator/',
-        'list_elements': [{'header':'ID', 'element':'online_id'},{'element':'name'},{'subelement':'village_name','element':'assigned_villages'}],
+        'list_elements': [{'header':'ID', 'element':'online_id'},{'header':'ID','element':'name'},{'subelement':'village_name','element':'assigned_villages'}],
         'entity_name': 'mediator',
         'unique_together_fields': ['name', 'gender', 'district.id'],
         'sort_field': 'name',
         'inc_table_name': 'animator',
         'foreign_entities': {
+            'state': {
+                "state": {
+                    'placeholder': 'id_state',
+                    'name_field': 'state_name'
+                }, 
+            },
+            'district': {
+                "district": {
+                    'placeholder': 'id_district',
+                    'name_field': 'district_name',
+                    'dependency': [{
+                        'source_form_element': 'state',
+                        'dep_attr': 'state',
+                    }]
+                }, 
+            },
+            'block': {
+                "block": {
+                    'placeholder': 'id_block',
+                    'name_field': 'block_name',
+                    'dependency': [{
+                        'source_form_element': 'district',
+                        'dep_attr': 'district'
+                    }]
+                }, 
+            },
             'village': {
                 "assigned_villages": {
                     'placeholder': 'id_ass_villages',
-                    'name_field': 'village_name'
+                    'name_field': 'village_name',
+                    'dependency': [{
+                        'source_form_element': 'block',
+                        'dep_attr': 'block'
+                    }]
                 }, //name of html element in form/ attribute name in json: {placeholder: "id of html element in form", name_field: "attribute in foreign entity's json "} 
             },
-            district: {
-                district :{
-                    placeholder : 'id_district',
-                    name_field : 'district_name' 
-                }
-            }
         },
         'form_field_validation': {
             ignore: [],
@@ -163,12 +187,12 @@ function() {
                     allowedChar: true
                 },
                 gender: "required",
+                village_group: "required",
                 phone_no: {
                     digits: true,
                     maxlength: 10
                 },
-                assigned_villages: "required",
-                district: "required"
+                assigned_villages: "required"
             },
             messages: {
                 name: {
@@ -178,12 +202,12 @@ function() {
                     allowedChar: 'Mediator name should contain only english and local language characters'
                 },
                 gender: "Gender is required",
+                village_group: "Village group is required",
                 phone_no: {
                     digits: 'Phone number should contain only digits',
                     maxlength: "Phone number should not contain more than 10 digits"
                 },
-                assigned_villages: "Assigned villages are required",
-                district: "District is required"
+                assigned_villages: "Assigned villages are required"
             },
 
             highlight: function(element, errorClass, validClass) {
@@ -214,24 +238,30 @@ function() {
         'add_template_name': 'video_add_edit_template',
         'edit_template_name': 'video_add_edit_template',
         'rest_api_url': '/coco/api/v2/video/',
-        'list_elements': [{'header':'ID','element':'online_id'},{'element':'title'},{'header':'Village','element':'village.village_name'},{'header':'Start Date','element':'video_production_start_date'},{'header':'End Date','element':'video_production_end_date'}],
+        'list_elements': [{'header':'ID','element':'online_id'},{'element':'title'},{'header':'Village','element':'village.village_name'},{'header':'Topic','element':'topic.topic_name'}],
         'entity_name': 'video',
-        'unique_together_fields': ['title', 'video_production_start_date', 'video_production_end_date', 'village.id'],
+        'unique_together_fields': ['title', 'topic', 'village.id'],
         'sort_field': 'title',
         'foreign_entities': {
+            'topic': {
+                "topic":{
+                    'placeholder': 'id_topic',
+                    'name_field' : 'topic_name'
+                },
+            },
             'mediator': {
                 "facilitator": {
                     'placeholder': 'id_facilitator',
                     'name_field': 'name'
                 },
-                "cameraoperator": {
-                    'placeholder': 'id_cameraoperator',
+                "production_team": {
+                    'placeholder': 'id_production_team',
                     'name_field': 'name'
                 },
             },
             'person': {
-                "farmers_shown": {
-                    'placeholder': 'id_farmers_shown',
+                "persons_shown": {
+                    'placeholder': 'id_persons_shown',
                     'name_field': 'person_name',
                     'dependency': [{
                         'source_form_element': 'village',
@@ -239,11 +269,42 @@ function() {
                     }]
                 },
             },
+            'state': {
+                "state": {
+                    'placeholder': 'id_state',
+                    'name_field': 'state_name'
+                }, 
+            },
+            'district': {
+                "district": {
+                    'placeholder': 'id_district',
+                    'name_field': 'district_name',
+                    'dependency': [{
+                        'source_form_element': 'state',
+                        'dep_attr': 'state',
+                    }]
+                }, 
+            },
+            'block': {
+                "block": {
+                    'placeholder': 'id_block',
+                    'name_field': 'block_name',
+                    'dependency': [{
+                        'source_form_element': 'district',
+                        'dep_attr': 'district'
+                    }]
+                }, 
+            },
             'village': {
                 "village": {
                     'placeholder': 'id_village',
-                    'name_field': 'village_name'
+                    'name_field': 'village_name',
+                    'dependency': [{
+                        'source_form_element': 'block',
+                        'dep_attr': 'block'
+                }]
                 },
+                
             },
             'language': {
                 "language": {
@@ -254,31 +315,6 @@ function() {
 
 
         },
-        'inline': {
-            'entity': 'nonnegotiable',
-            'validation_chk': '#non_negotiable0',
-            'default_num_rows': 5,
-            'add_row' : 1,
-            'req_nonnegotiable' : 1,
-            'exemption_video_type': '2', 
-            'error_message' : 'Add Non-negotiable',
-            'template': 'nonnegotiable_inline',
-            'joining_attribute': {
-                'host_attribute': ["id", "title"],
-                'inline_attribute': "video"
-            },
-            'header': 'nonnegotiable_inline_header',
-            'borrow_attributes': [],
-            foreign_entities: {
-                video: {
-                    video: {
-                        placeholder: 'id_video',
-                        name_field: 'title'
-                    }
-                }
-            }
-        },
-
         'form_field_validation': {
             ignore: ".donotvalidate",
             rules: {
@@ -288,16 +324,7 @@ function() {
                     maxlength: 200,
                     // allowedChar: true
                 },
-                video_type: "required",
-                video_production_start_date: {
-                    required: true,
-                    // validateDate: true
-                },
-                video_production_end_date: {
-                    required: true,
-					dateOrder: {video_production_start_date : "video_production_start_date"}
-                    // validateDate: true
-                },
+                topic : "required",
                 language: "required",
                 summary: {
                     minlength: 2,
@@ -306,16 +333,12 @@ function() {
                 },
                 village: "required",
                 facilitator: "required",
-                cameraoperator: "required",
-                farmers_shown: "required",
-                actors: "required",
+                production_team: "required",
+                persons_shown: "required",
+                women_featured: "required",
                 video_suitable_for: "required",
 
-				approval_date: {
-					dateOrder: {video_production_start_date : "video_production_end_date"}
-                    // validateDate: true
-                },
-                youtubeid: {
+				youtubeid: {
                     maxlength: 20
                 }
             },
@@ -326,16 +349,7 @@ function() {
                     maxlength: 'Video title should contain at most 200 characters',
                     // allowedChar: 'Video title should only contain alphabets and local language characters'
                 },
-                video_type: "Video type is required",
-                video_production_start_date: {
-                    required: 'Video production start date is required',
-                    validateDate: "Enter video production start date in the form of YYYY-MM-DD"
-                },
-                video_production_end_date: {
-                    required: 'Video production end date is required',
-                    validateDate: "Enter video production end date in the form of YYYY-MM-DD",
-					dateOrder: "End date should be later than start date"
-                },
+                topic: "Topic is required",
                 language: "Language is required",
                 summary: {
                     minlength: "Summary should contain at least 2 characters",
@@ -344,17 +358,92 @@ function() {
                 },
                 village: "Village is required",
                 facilitator: "Facilitator is required",
-                cameraoperator: "Camera operator is required",
-                farmers_shown: "Persons shown are required",
-                actors: "Actors are required",
+                production_team: "Camera operator is required",
+                persons_shown: "Persons shown are required",
+                women_featured: "Women featured are reuired",
                 video_suitable_for: "Video suitable for is required",
                 approval_date: {
                     validateDate: "Enter Approval Date in the form of YYYY-MM-DD",
-					dateOrder: "Approval date should be later than end date"
-                },
+				},
                 youtubeid: {
                     maxlength: "YoutubeID should contain at most 20 characters"
                 }
+            },
+
+            highlight: function(element, errorClass, validClass) {
+                $(element)
+                    .parent('div')
+                    .parent('div')
+                    .addClass("error");
+
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element)
+                    .parent('div')
+                    .parent('div')
+                    .removeClass("error");
+
+            },
+            errorElement: "span",
+            errorClass: "help-inline red-color",
+            errorPlacement: function(label, element) {
+                element.parent().append(label);
+            }
+        }
+    };
+
+    var topic_configs = {
+        'page_header': 'Topic',
+        'add_template_name': 'topic_add_edit_template',
+        'edit_template_name': 'topic_add_edit_template',
+        'rest_api_url': '/coco/api/v2/topic/',
+        'list_elements': [{'header':'ID','element':'online_id'},{'element':'topic_name'}],
+        'entity_name': 'topic',
+        'sort_field': 'topic_name',
+        'inline': {
+            'entity': 'nonnegotiable',
+            'validation_chk': '#non_negotiable0',
+            'default_num_rows': 5,
+            'add_row' : 1,
+            'req_nonnegotiable' : 1,
+            'exemption_video_type': '2', 
+            'error_message' : 'Add Non-negotiable',
+            'template': 'nonnegotiable_inline',
+            'joining_attribute': {
+                'host_attribute': ["id", "topic_name"],
+                'inline_attribute': "topic"
+            },
+            'header': 'nonnegotiable_inline_header',
+            'borrow_attributes': [],
+            foreign_entities: {
+                topic: {
+                    topic: {
+                        placeholder: 'id_topic',
+                        name_field: 'topic_name'
+                    }
+                }
+            }
+        },
+
+        'form_field_validation': {
+            ignore: ".donotvalidate",
+            rules: {
+                topic_name: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 200,
+                    // allowedChar: true
+                },
+               
+            },
+            messages: {
+                title: {
+                    required: 'Topic name is required',
+                    minlength: 'Topic name should contain at least 2 characters',
+                    maxlength: 'Topic name should contain at most 200 characters',
+                    // allowedChar: 'Video title should only contain alphabets and local language characters'
+                },
+                
             },
 
             highlight: function(element, errorClass, validClass) {
@@ -393,6 +482,14 @@ function() {
         'rest_api_url': '/coco/api/v2/nonnegotiable/',
         'entity_name': 'nonnegotiable',
         'sort_field': 'non_negotiable',
+        'foreign_entities': {
+                'topic': {
+                    'topic': {
+                        'placeholder': 'id_topic',
+                        'name_field': 'topic_name'
+                    }
+                }
+            },
         'dashboard_display': {
             listing: false,
             add: false
@@ -409,21 +506,72 @@ function() {
         }
     };
 
+    var block_configs = {
+        'rest_api_url': '/coco/api/v2/block/',
+        'entity_name': 'block',
+        'sort_field': 'block_name',
+        'dashboard_display': {
+            listing: false,
+            add: false
+        }
+    };
+
+    var state_configs = {
+        'rest_api_url': '/coco/api/v2/state/',
+        'entity_name': 'state',
+        'sort_field': 'state_name',
+        'dashboard_display': {
+            listing: false,
+            add: false
+        }
+    };
+
     var group_configs = {
-        'page_header': 'Group',
+        'page_header': 'Farmer Family',
         'add_template_name': 'group_add_edit_template',
         'edit_template_name': 'group_add_edit_template',
         'rest_api_url': '/coco/api/v2/group/',
         'entity_name': 'group',
-        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Name','element':'group_name'},{'header':'Village','element':'village.village_name'}],
+        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Name','element':'name'},{'header':'Father Name','element':'father_name'},{'header':'Village','element':'village.village_name'}],
         'inc_table_name': 'persongroup',
-        'unique_together_fields': ['group_name', 'village.id'],
-        'sort_field': 'group_name',
+        'unique_together_fields': ['name', 'village.id'],
+        'sort_field': 'name',
         'foreign_entities': {
+            'state': {
+                "state": {
+                    'placeholder': 'id_state',
+                    'name_field': 'state_name'
+                }, 
+            },
+            'district': {
+                "district": {
+                    'placeholder': 'id_district',
+                    'name_field': 'district_name',
+                    'dependency': [{
+                        'source_form_element': 'state',
+                        'dep_attr': 'state',
+                    }]
+                }, 
+            },
+            'block': {
+                "block": {
+                    'placeholder': 'id_block',
+                    'name_field': 'block_name',
+                    'dependency': [{
+                        'source_form_element': 'district',
+                        'dep_attr': 'district'
+                    }]
+                }, 
+            },
             'village': {
                 'village': {
                     'placeholder': 'id_village',
-                    'name_field': 'village_name'
+                    'name_field': 'village_name',
+                    'dependency': [{
+                        'source_form_element': 'block',
+                        'dep_attr': 'block'
+                    }]
+
                 },
             },
         },
@@ -433,7 +581,7 @@ function() {
             'add_row' : 5,
             "template": "person_inline",
             "joining_attribute": {
-                'host_attribute': ["id", "group_name"],
+                'host_attribute': ["id", "name"],
                 'inline_attribute': "group"
             },
             "header": "person_inline_header",
@@ -451,7 +599,7 @@ function() {
                 group: {
                     group: {
                         placeholder: 'id_group',
-                        name_field: 'group_name'
+                        name_field: 'name'
                     }
                 }
             }
@@ -459,13 +607,16 @@ function() {
         'form_field_validation': {
             ignore: ".donotvalidate",
             rules: {
-                group_name: {
+                name: {
                     required: true,
                     minlength: 2,
                     maxlength: 100,
                     allowedChar: true
                 },
-                village: "required"
+                father_name: "required",
+                aadhar_id: "required",
+                gender: "required",
+                village: "required",
             },
             messages: {
                 name: {
@@ -474,6 +625,9 @@ function() {
                     maxlength: 'Group name should contain at most 100 characters',
                     allowedChar: 'Group name should contain only english and local language characters'
                 },
+                father_name: "Father name is required",
+                aadhar_id: "Aadhar ID is required",
+                gender: "Gender is required",
                 village: "Village is required"
             },
 
@@ -505,7 +659,7 @@ function() {
         'page_header': 'Screening',
         'add_template_name': 'screening_add_edit_template',
         'edit_template_name': 'screening_add_edit_template',
-        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Screening Date','element':'date'},{'header':'Mediator','element':'animator.name'},{'header':'Village','element':'village.village_name'},{'header':'Groups Attended','subelement':'group_name','element':'farmer_groups_targeted'},{'header':'Videos Screened','subelement':'title','element':'videoes_screened'}],
+        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Screening Date','element':'date'},{'header':'Field Officer','element':'animator.name'},{'header':'Village','element':'village.village_name'},{'header':'Farmer Families Attended','subelement':'name','element':'farmer_groups_targeted'},{'header':'Videos Screened','subelement':'title','element':'videoes_screened'}],
         'rest_api_url': '/coco/api/v2/screening/',
         'entity_name': 'screening',
         download_chunk_size: 1000,
@@ -566,10 +720,40 @@ function() {
             };
         },
         'foreign_entities': {
+            'state': {
+                "state": {
+                    'placeholder': 'id_state',
+                    'name_field': 'state_name'
+                }, 
+            },
+            'district': {
+                "district": {
+                    'placeholder': 'id_district',
+                    'name_field': 'district_name',
+                    'dependency': [{
+                        'source_form_element': 'state',
+                        'dep_attr': 'state',
+                    }]
+                }, 
+            },
+            'block': {
+                "block": {
+                    'placeholder': 'id_block',
+                    'name_field': 'block_name',
+                    'dependency': [{
+                        'source_form_element': 'district',
+                        'dep_attr': 'district'
+                    }]
+                }, 
+            },
             'village': {
                 'village': {
                     'placeholder': 'id_village',
-                    'name_field': 'village_name'
+                    'name_field': 'village_name',
+                    'dependency': [{
+                        'source_form_element': 'block',
+                        'dep_attr': 'block'
+                    }]
                 },
             },
             'video': {
@@ -591,7 +775,7 @@ function() {
             'group': {
                 farmer_groups_targeted: {
                     'placeholder': 'id_group',
-                    'name_field': 'group_name',
+                    'name_field': 'name',
                     'dependency': [{
                         'source_form_element': 'village',
                         'dep_attr': 'village'
@@ -604,7 +788,7 @@ function() {
                     'name_field': 'person_name',
                     'name_field_father_name':'father_name',
                     'name_field_extra_info':'group',
-                    'name_field_group_name':'group_name',
+                    'name_field_group_name':'name',
                     'name_field_person_id':'online_id',
 
                     'dependency': [{
@@ -660,7 +844,7 @@ function() {
                 end_time: {
                     required: true,
                     validateTime: true,
-					timeOrder: {start_time : "start_time"}
+                    timeOrder: {start_time : "start_time"}
                 },
                 animator: "required",
                 village: "required",
@@ -669,24 +853,24 @@ function() {
 
             },
             messages: {
-				date: {
-					required: 'Screening date is required',
-					validateDate: 'Enter screening date in the form of YYYY-MM-DD',
-				},
-				start_time: {
-					required: 'Screening start time is required',
-					validateTime: 'Enter the start time in the form of HH:MM. Use 24 hour format',
-				},
-				end_time: {
-					required: 'Screening end time is required',
-					validateTime: 'Enter the end time in the form of HH:MM. Use 24 hour format',
-					timeOrder: 'End time should be later than start time',
-				},
-				animator: "Mediator is required",
-				village:"Village is required",
-				videoes_screened:"Videos screened is required",
-				farmer_groups_targeted: "Groups attended is required"
-			},
+                date: {
+                    required: 'Screening date is required',
+                    validateDate: 'Enter screening date in the form of YYYY-MM-DD',
+                },
+                start_time: {
+                    required: 'Screening start time is required',
+                    validateTime: 'Enter the start time in the form of HH:MM. Use 24 hour format',
+                },
+                end_time: {
+                    required: 'Screening end time is required',
+                    validateTime: 'Enter the end time in the form of HH:MM. Use 24 hour format',
+                    timeOrder: 'End time should be later than start time',
+                },
+                animator: "Mediator is required",
+                village:"Village is required",
+                videoes_screened:"Videos screened is required",
+                farmer_groups_targeted: "Farmer fmailies attended is required"
+            },
 
             highlight: function(element, errorClass, validClass) {
                 $(element)
@@ -712,39 +896,45 @@ function() {
 
     var adoption_configs = {
         'page_header': 'Adoption',
-        'add_template_name': 'adoption_add_template',
-        'edit_template_name': 'adoption_edit_template',
+        'add_template_name': 'adoption_add_edit_template',
+        'edit_template_name': 'adoption_add_edit_template',
         'rest_api_url': '/coco/api/v2/adoption/',
         'entity_name': 'adoption',
         'inc_table_name': 'personadoptpractice',
-        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Date','element':'date_of_adoption'},{'header':'Person ID','element':'person.online_id'},{'header':'Person','element':'person.person_name'},{'header':'Group','element':'group.group_name'},{'header':'Village','element':'village.village_name'},{'header':'Video','element':'video.title'}],
-        'unique_together_fields': ['person.id', 'video.id', 'date_of_adoption'],
+        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Date','element':'date_of_adoption'},{'header':'Farmer Family ID','element':'group.online_id'},{'header':'Farmer Family','element':'group.name'},{'header':'Village','element':'village.village_name'},{'header':'Topic','element':'topic.topic_name'}],
+        'unique_together_fields': ['group.id', 'topic.id', 'date_of_adoption'],
         form_field_validation: {
             ignore: [],
-			rules: {
-                person: {
+            rules: {
+                group: {
                     required: true,
                     
                 },
-                video: {
+                topic: {
                     required: true,                    
                 },                
                 date_of_adoption: {
                     required: true,
-					validateDate: true
-                }
+                    validateDate: true
+                },
+                animator: {
+                    required : true,
+                },
             },
             messages: {
-				person: {
-					required: "person is required"
-				},
-				video: {
-					required: "video is required"
-				},
-				date_of_adoption: {
-					required: "Date of Adoption is required"
-				}
-			},
+                group: {
+                    required: "Farmer Family is required"
+                },
+                topic: {
+                    required: "topic is required"
+                },
+                date_of_adoption: {
+                    required: "Date of Adoption is required"
+                },
+                animator: {
+                    required: "Field officer is required"
+                },
+            },
             highlight: function(element, errorClass, validClass) {
                 $(element)
                     .parent('div')
@@ -766,122 +956,121 @@ function() {
             },
             display: "block"
         },
-        add: {
-            'foreign_entities': {
+        
+        'foreign_entities': {
+            'state': {
+                "state": {
+                    'placeholder': 'id_state',
+                    'name_field': 'state_name'
+                }, 
+            },
+            'district': {
+                "district": {
+                    'placeholder': 'id_district',
+                    'name_field': 'district_name',
+                    'dependency': [{
+                        'source_form_element': 'state',
+                        'dep_attr': 'state',
+                    }]
+                }, 
+            },
+            'block': {
+                "block": {
+                    'placeholder': 'id_block',
+                    'name_field': 'block_name',
+                    'dependency': [{
+                        'source_form_element': 'district',
+                        'dep_attr': 'district'
+                    }]
+                }, 
+            },
+            'village': {
                 'village': {
-                    'village': {
-                        'placeholder': 'id_village',
-                        'name_field': 'village_name'
-                    },
+                    'placeholder': 'id_village',
+                    'name_field': 'village_name',
+                    'dependency': [{
+                        'source_form_element': 'block',
+                        'dep_attr': 'block'
+                    }]
                 },
-                'group': {
-                    'group': {
-                        'placeholder': 'id_group',
-                        'name_field': 'group_name',
-                        'dependency': [{
-                            'source_form_element': 'village',
-                            'dep_attr': 'village'
-                        }]
-                    }
-                },
-                'person': {
-                    float_person: {
-                        'placeholder': 'id_person',
-                        'name_field': 'person_name',
-                        'name_field_father_name':'father_name',
-                        'name_field_extra_info':'group',
-                        'name_field_group_name':'group_name',
-                        'name_field_person_id':'online_id',
-                        'dependency': [{
-                            'source_form_element': 'village',
-                            'dep_attr': 'village'
-                        }],
-                    },
-                    farmers_attendance: {
-                        dependency: [{
-                            'source_form_element': 'group',
-                            'dep_attr': 'group'
-                        }, {
-                            'source_form_element': 'float_person',
-                            'dep_attr': 'id'
-                        }],
-                        id_field: "person_id", // for convert_namespace conversion      
-                        'expanded': { // won't be denormalised, wud be converted offline to online, render wud use a template declared and nt options template, any field to be denormalised or converted offline to online can be declared - this shd be clubbed and put as foreign entity of expanded.  
-                            template: 'adoption_inline',
-                            placeholder: 'bulk'
-                        }
-                    }
+            },
+            'mediator': {
+                'animator': {
+                    'placeholder': 'id_animator',
+                    'name_field': 'name',
+                    'dependency': [{
+                        'source_form_element': 'village',
+                        'dep_attr': 'assigned_villages'
+                    }]
                 }
             },
-            'bulk': {
-                foreign_fields: { //foreign fields in the individual objects
-                    "video": {
-                        video: {
-                            'name_field': 'title'
-                        }
-                    },
-                    "person": {
-                        person: {
-                            'name_field': 'person_name'
-                        }
-                    },
-                    village: {
-                        village:{
-                            'name_field': 'village_name'
-                        }
-                    },
-                    group: {
-                        group:{
-                            'name_field': 'group_name'
-                        }
-                    }
-                },
-                borrow_fields: ['village', 'group']
-            }
-        },
-        edit: {
-            'foreign_entities': {
-                'person': {
-                    'person': {
-                        'placeholder': 'id_person',
-                        'name_field': 'person_name'
-                    },
-                },
-                'video': {
-                    'video': {
-                        'placeholder': 'id_video',
-                        // 'sub_attr': 'videos_seen',
-                        'name_field': 'title',
-                        'dependency': [{
-                            'source_form_element': 'person',
-                            'dep_attr': 'id',
-                            'src_attr': 'videos_seen',
-                        }]
-                    }
+            'group': {
+                'group': {
+                    'placeholder': 'id_group',
+                    'name_field': 'name',
+                    'dependency': [{
+                        'source_form_element': 'village',
+                        'dep_attr': 'village'
+                    }]
                 }
-            }
+            },
+            'topic': {
+                'topic': {
+                    'placeholder' : 'id_topic',
+                    'name_field' : 'topic_name'
+                }
+            },
         }
-
     };
 
     var person_configs = {
         'page_header': 'Person',
         'add_template_name': 'person_add_edit_template',
         'edit_template_name': 'person_add_edit_template',
-        'list_elements': [{'header':'ID','element':'online_id'},{'element':'person_name'},{'element':'father_name'},{'element':'village.village_name'},{'element':'group.group_name'}],
+        'list_elements': [{'header':'ID','element':'online_id'},{'element':'person_name'},{'element':'father_name'},{'element':'village.village_name'},{'element':'group.name'}],
         'rest_api_url': '/coco/api/v2/person/',
         'entity_name': 'person',
         'foreign_entities': {
+            'state': {
+                "state": {
+                    'placeholder': 'id_state',
+                    'name_field': 'state_name'
+                }, 
+            },
+            'district': {
+                "district": {
+                    'placeholder': 'id_district',
+                    'name_field': 'district_name',
+                    'dependency': [{
+                        'source_form_element': 'state',
+                        'dep_attr': 'state',
+                    }]
+                }, 
+            },
+            'block': {
+                "block": {
+                    'placeholder': 'id_block',
+                    'name_field': 'block_name',
+                    'dependency': [{
+                        'source_form_element': 'district',
+                        'dep_attr': 'district'
+                    }]
+                }, 
+            },
             'village': {
                 'village': {
                     'placeholder': 'id_village',
-                    'name_field': 'village_name'
+                    'name_field': 'village_name',
+                    'dependency': [{
+                        'source_form_element': 'block',
+                        'dep_attr': 'block'
+                    }]
                 },
             },
             'group': {
                 'group': {
                     'placeholder': 'id_group',
-                    'name_field': 'group_name',
+                    'name_field': 'name',
 					'dependency': [{
                         'source_form_element': 'village',
                         'dep_attr': 'village'
@@ -1027,6 +1216,7 @@ function() {
         village: village_configs,
         mediator: mediator_configs,
         video: video_configs,
+        topic: topic_configs,
         group: group_configs,
         person: person_configs,
         screening: screening_configs,
@@ -1034,6 +1224,8 @@ function() {
         language: language_configs,
         district: district_configs,
         nonnegotiable: nonnegotiable_configs,
+        block: block_configs,
+        state: state_configs,
         misc: misc
     }
 
