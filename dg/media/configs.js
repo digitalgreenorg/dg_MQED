@@ -131,6 +131,7 @@ function() {
 
     var mediator_configs = {
         'page_header': 'Field Officer',
+        'altername_name': 'Field Officer',
         'add_template_name': 'mediator_add_edit_template',
         'edit_template_name': 'mediator_add_edit_template',
         'rest_api_url': '/coco/api/v2/mediator/',
@@ -526,6 +527,7 @@ function() {
 
     var group_configs = {
         'page_header': 'Farmer Family',
+        'altername_name': 'Farmer Familie',
         'add_template_name': 'group_add_edit_template',
         'edit_template_name': 'group_add_edit_template',
         'rest_api_url': '/coco/api/v2/group/',
