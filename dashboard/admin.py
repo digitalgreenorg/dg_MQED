@@ -67,13 +67,13 @@ class NonNegotiablesInline(admin.TabularInline):
 
 class VideoAdmin(admin.ModelAdmin):
     fieldsets = [
-                (None, {'fields':['title','topic','language','summary','village','facilitator','production_team','persons_shown','other_persons_shown','women_featured','approval_date','video_status','youtubeid', 'partner']}),
+                (None, {'fields':['title','topic','language','summary','village','production_team','persons_shown','women_featured','approval_date','video_status','youtubeid', 'partner']}),
                 
     ]
     list_display = ('id', 'title')
     search_fields = ['id', 'title', 'partner__partner_name' , 'village__village_name', 'village__block__block_name', 'village__block__district__district_name','village__block__district__state__state_name' ]
     list_filter = ('village__block__district__state__state_name', 'partner__partner_name')
-    raw_id_fields = ('village', 'facilitator', 'persons_shown')
+    raw_id_fields = ('village', 'persons_shown')
 
 class AnimatorAssignedVillages(admin.StackedInline):
     model = AnimatorAssignedVillage
