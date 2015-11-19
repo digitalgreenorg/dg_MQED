@@ -134,7 +134,7 @@ function() {
         'add_template_name': 'mediator_add_edit_template',
         'edit_template_name': 'mediator_add_edit_template',
         'rest_api_url': '/coco/api/v2/mediator/',
-        'list_elements': [{'header':'ID', 'element':'online_id'},{'header':'ID','element':'name'},{'subelement':'village_name','element':'assigned_villages'}],
+        'list_elements': [{'header':'ID', 'element':'online_id'},{'header':'Field Officer','element':'name'},{'subelement':'village_name','element':'assigned_villages'}],
         'entity_name': 'mediator',
         'unique_together_fields': ['name', 'gender', 'district.id'],
         'sort_field': 'name',
@@ -901,7 +901,7 @@ function() {
         'rest_api_url': '/coco/api/v2/adoption/',
         'entity_name': 'adoption',
         'inc_table_name': 'personadoptpractice',
-        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Date','element':'date_of_adoption'},{'header':'Farmer Family ID','element':'group.online_id'},{'header':'Farmer Family','element':'group.name'},{'header':'Village','element':'village.village_name'},{'header':'Topic','element':'topic.topic_name'}],
+        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Date','element':'date_of_adoption'},{'header':'Farmer Family ID','element':'group.id'},{'header':'Farmer Family','element':'group.name'},{'header':'Village','element':'village.village_name'},{'header':'Topic','element':'topic.topic_name'}],
         'unique_together_fields': ['group.id', 'topic.id', 'date_of_adoption'],
         form_field_validation: {
             ignore: [],
