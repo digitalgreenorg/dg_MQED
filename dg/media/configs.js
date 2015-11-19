@@ -332,7 +332,6 @@ function() {
                     // allowedChar: true
                 },
                 village: "required",
-                facilitator: "required",
                 production_team: "required",
                 persons_shown: "required",
                 women_featured: "required",
@@ -357,7 +356,6 @@ function() {
                     // allowedChar: "summary should not contain special characters"
                 },
                 village: "Village is required",
-                facilitator: "Facilitator is required",
                 production_team: "Camera operator is required",
                 persons_shown: "Persons shown are required",
                 women_featured: "Women featured are reuired",
