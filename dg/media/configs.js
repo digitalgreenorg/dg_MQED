@@ -188,7 +188,6 @@ function() {
                     allowedChar: true
                 },
                 gender: "required",
-                village_group: "required",
                 phone_no: {
                     digits: true,
                     maxlength: 10
@@ -203,7 +202,6 @@ function() {
                     allowedChar: 'Mediator name should contain only english and local language characters'
                 },
                 gender: "Gender is required",
-                village_group: "Village group is required",
                 phone_no: {
                     digits: 'Phone number should contain only digits',
                     maxlength: "Phone number should not contain more than 10 digits"

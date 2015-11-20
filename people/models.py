@@ -10,7 +10,7 @@ class Animator(CocoModel):
     id = models.AutoField(primary_key = True)
     old_coco_id = models.BigIntegerField(editable=False, null=True)
     name = models.CharField(max_length=100)
-    father_name = models.CharField(max_length=100)
+    father_name = models.CharField(max_length=100, blank=True, null=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     partner = models.ForeignKey(Partner, verbose_name='Supply Partner')
     phone_no = models.CharField(max_length=100, blank=True)
@@ -21,7 +21,7 @@ class Animator(CocoModel):
 
     class Meta:
         verbose_name = "Field Officer"
-        unique_together = ("name", "father_name", "gender", "partner")
+        unique_together = ("name", "gender", "partner")
 
     def get_village(self):
         return None
