@@ -76,7 +76,7 @@ class NonNegotiable(CocoModel):
     topic = models.ForeignKey(Topic)
     non_negotiable = models.CharField(max_length=500)
     chapter =  models.CharField(max_length=500)
-    days_after_sowing =  models.CharField(max_length=500)
+    timing =  models.CharField(max_length=500)
     physically_verifiable = models.BooleanField(db_index=True, default=False)
     
 
