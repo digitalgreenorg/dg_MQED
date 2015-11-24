@@ -39,9 +39,9 @@ ACTORS = (
 )
 
 VIDEO_STATUS = (
-        ('Dissemination', 'Storyboard'),
-        ('Dissemination-Training', 'Filming'),
-        ('Video Production Training', 'Post Production'),
+        ('Dissemination', 'Dissemination'),
+        ('Dissemination-Training', 'Dissemination-Training'),
+        ('Video Production Training', 'Video Production Training'),
 )
 
 RELATION_CHOICES = (
