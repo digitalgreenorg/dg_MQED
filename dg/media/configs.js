@@ -354,7 +354,7 @@ function() {
                     // allowedChar: "summary should not contain special characters"
                 },
                 village: "Village is required",
-                production_team: "Camera operator is required",
+                production_team: "Production team is required",
                 women_featured: "Women featured are reuired",
                 video_suitable_for: "Video suitable for is required",
                 approval_date: {
