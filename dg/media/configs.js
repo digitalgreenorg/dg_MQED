@@ -332,7 +332,6 @@ function() {
                 },
                 village: "required",
                 production_team: "required",
-                persons_shown: "required",
                 women_featured: "required",
                 video_suitable_for: "required",
 
@@ -356,7 +355,6 @@ function() {
                 },
                 village: "Village is required",
                 production_team: "Camera operator is required",
-                persons_shown: "Persons shown are required",
                 women_featured: "Women featured are reuired",
                 video_suitable_for: "Video suitable for is required",
                 approval_date: {

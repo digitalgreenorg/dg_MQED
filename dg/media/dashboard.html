@@ -979,7 +979,7 @@
             <div class="form-group">
                 <label class="control-label dis-block col-sm-2">Village</label>
                 <div class="col-sm-4">
-                    <select id = "id_village" name="village" class="chosen-select form-control">
+                    <select id = "id_village" name="village" class="chosen-select form-control" required>
                         <option value="">---------- </option>
                     </select>
                 </div>
@@ -992,7 +992,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label dis-block col-sm-2"><b>Persons Shown</b></label>
+                <label class="dis-block control-label col-sm-2 notbold">Persons Shown</label>
                 <div class="col-sm-4">
                     <select size="20" class="chosen-select form-control" id = "id_persons_shown" name="persons_shown" multiple>
                     </select>
@@ -1000,7 +1000,7 @@
             </div>
             
             <div class="form-group">
-                <label class="control-label dis-block col-sm-2">Features Women</label>
+                <label class="control-label dis-block col-sm-2">Women featured</label>
                 <div class="col-sm-4">
                     <select class="input-medium form-control" name="women_featured">
                         <option value="" selected="selected">
@@ -1030,7 +1030,7 @@
             <div class="form-group">
                 <label class="control-label dis-block col-sm-2">Video Suitable For</label>
                 <div class="col-sm-4">
-                    <select name="video_status" class="form-control">
+                    <select name="video_suitable_for" class="form-control" required>
                         <option value="" selected="selected">
                             ---------
                         </option>
@@ -1177,7 +1177,7 @@
                 </div>
             </div> 
             <div class="form-group"> 
-                <label class="control-label col-sm-2">Other Profession </label>
+                <label class="control-label col-sm-2 notbold">Other Profession </label>
                 <div class="col-sm-4"> 
                     <input type="text" name="other_profession" class="form-control" required>
                 </div>
