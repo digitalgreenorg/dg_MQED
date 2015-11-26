@@ -67,7 +67,7 @@ class NonNegotiablesInline(admin.TabularInline):
 
 class VideoAdmin(admin.ModelAdmin):
     fieldsets = [
-                (None, {'fields':['title','topic','language','summary','village','production_team','persons_shown','women_featured','approval_date','video_status','youtubeid', 'partner']}),
+                (None, {'fields':['title','topic','language','summary','village','production_team','persons_shown','women_featured','approval_date','video_suitable_for','youtubeid', 'partner']}),
                 
     ]
     list_display = ('id', 'title')

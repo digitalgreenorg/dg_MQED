@@ -52,6 +52,7 @@ class PersonGroup(CocoModel):
     father_name = models.CharField(max_length=100)
     aadhar_id = models.CharField(max_length=100)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    phone_no = models.CharField(max_length=10, blank=True)
     village = models.ForeignKey(Village)
     partner = models.ForeignKey(Partner, verbose_name='Supply Partner')
 
