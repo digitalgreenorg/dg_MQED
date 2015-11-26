@@ -22,7 +22,7 @@ class Command(BaseCommand):
 			csvfile = open('/home/ubuntu/django_projects/Mediator/field.csv', 'rb')
 			rows_file = csv.DictReader(csvfile)
 
-			wrtr.writerow(["COCO USER"])	
+			'''wrtr.writerow(["COCO USER"])	
 			i = 0
 			for row in rows_file:
 				coco_user_set = CocoUser.objects.all()
@@ -64,9 +64,9 @@ class Command(BaseCommand):
 							print i,  "villages assigned done"
 						except Exception as e:
 							wrtr.writerow([i, "villages assigned error", e])
-							print i, "villages assigned error", e
+							print i, "villages assigned error", e'''
 
-			wrtr.writerow(["Field officers"])	
+			'''wrtr.writerow(["Field officers"])	
 			i = 0
 			for row in rows_file:
 				try:
@@ -102,12 +102,12 @@ class Command(BaseCommand):
 					animator.save()
 				except Exception as e:
 						wrtr.writerow([i, "animator", e])
-						print i,"animator failed", e
+						print i,"animator failed", e'''
 
 			wrtr.writerow(["Field officer assigned villages"])	
 			i = 0
 			for row in rows_file:
-				animator_set = Animator.objects.all()
+				animator_set = Animator.objects.filter(partner_id__partner_name = unicode(row['Company'])).all()
 				animators = [entry.name for entry in animator_set]
 
 				try:
@@ -123,7 +123,7 @@ class Command(BaseCommand):
 				if unicode(row['Field Officer Name']) in animators:
 					try:
 
-						animator = Animator.objects.get(name = unicode(row['Field Officer Name']))
+						animator = Animator.objects.filter(partner_id__partner_name = unicode(row['Company']), name = unicode(row['Field Officer Name'])).get()
 						animator_assigned = AnimatorAssignedVillage(
 											animator = animator,
 											village = village
