@@ -353,7 +353,15 @@ var message_combined_failure = "";
                 for (var title in counts_success)
                 {
                     if (counts_success[title]>0)
-                        message_combined_success = message_combined_success + "<br>" + "Saved " + counts_success[title] + " " +title;
+                        if (title == 'mediator'){
+                            message_combined_success = message_combined_success + "<br>" + "Saved " + counts_success[title] + " " +"Field Officer";
+                        }
+                        else if (title == 'group'){
+                            message_combined_success = message_combined_success + "<br>" + "Saved " + counts_success[title] + " " +"Farmer Family";
+                        }
+                        else {
+                            message_combined_success = message_combined_success + "<br>" + "Saved " + counts_success[title] + " " +title;
+                        }
                 }       
             };
 
@@ -369,7 +377,17 @@ var message_combined_failure = "";
                 for (var title in counts_failure)
                 {
                     if (counts_failure[title]>0)
-                        message_combined_failure = message_combined_failure + "<br>" + "Error saving " + counts_failure[title] + " " +title;
+                        if (title == 'mediator'){
+                            message_combined_failure = message_combined_failure + "<br>" + "Error saving " + counts_failure[title] + " " +"Field Officer";
+                        }
+
+                        else if (title == 'group'){
+                            message_combined_failure = message_combined_failure + "<br>" + "Error saving " + counts_failure[title] + " " +"Farmer Family";
+                        }
+
+                        else{
+                            message_combined_failure = message_combined_failure + "<br>" + "Error saving " + counts_failure[title] + " " +title;
+                        }
 
                 }
             };
