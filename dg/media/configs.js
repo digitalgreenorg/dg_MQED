@@ -237,7 +237,7 @@ function() {
         'add_template_name': 'video_add_edit_template',
         'edit_template_name': 'video_add_edit_template',
         'rest_api_url': '/coco/api/v2/video/',
-        'list_elements': [{'header':'ID','element':'online_id'},{'element':'title'},{'header':'Village','element':'village.village_name'},{'header':'Topic','element':'topic.topic_name'}],
+        'list_elements': [{'header':'ID','element':'online_id'},{'element':'title'},{'header':'Topic','element':'topic.topic_name'}],
         'entity_name': 'video',
         'unique_together_fields': ['title', 'topic', 'village.id'],
         'sort_field': 'title',
