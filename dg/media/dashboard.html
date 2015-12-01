@@ -1012,23 +1012,11 @@
                         <option value="" selected="selected">
                             ---------
                         </option>
-                        <option value="Farming">
-                            Farming
+                        <option value="Y">
+                            Yes
                         </option>
-                        <option value="Teaching">
-                            Teaching
-                        </option>
-                        <option value="Making Decisions">
-                            Making Decisions
-                        </option>
-                        <option value="Being Interviwed">
-                            Being Interviwed
-                        </option>
-                        <option value="Other Activities">
-                            Other Activities
-                        </option>
-                        <option value="Does not feature women">
-                            Does not feature women
+                        <option value="N">
+                            No
                         </option>
                     </select>
                 </div>
@@ -1088,16 +1076,16 @@
                 <%=index+1%>.</td>
 
     <td><div class="form-group"><div class="controls">
-            <textarea name="non_negotiable<%=index%>" id="non_negotiable<%=index%>" class=" input-xlarge form-control donotvalidate" required minlength="1" maxlength="500"rows="1" style="resize:vertical;width:85%;" ></textarea>
+            <textarea name="non_negotiable<%=index%>" id="non_negotiable<%=index%>" class=" input-xlarge form-control donotvalidate" required minlength="1" maxlength="500"rows="1" style="resize:vertical;width:85%;" required></textarea>
                 
             </div></div>
         </td>
     <td class="col-sm-2"><div class="form-group"><div class="controls">
-            <input type="text" id="chapter<%=index%>" name="chapter<%=index%>" class="form-control" style="width:75%;">
+            <input type="text" id="chapter<%=index%>" name="chapter<%=index%>" class="form-control" style="width:75%;" required>
             </div></div>
         </td>
     <td class="col-sm-2"><div class="form-group"><div class="controls">
-            <input type="text" id="timing<%=index%>" name="timing<%=index%>" class="form-control" style="width:75%;">
+            <input type="text" id="timing<%=index%>" name="timing<%=index%>" class="form-control" style="width:75%;" required>
             </div></div>
         </td>
 

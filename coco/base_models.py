@@ -60,15 +60,6 @@ YesNo_CHOICES = (
     ('Y','Yes'),
 )
 
-WOMEN_FEATURED = (
-    ('Farming','Farming'),
-    ('Teaching','Teaching'),
-    ('Making Decisions','Making Decisions'),
-    ('Being Interviwed','Being Interviwed'),
-    ('Other Activities','Other Activities'),
-    ('Does not feature women','Does not feature women'),
-)
-
 NONNEGOTIABLE_OPTION = (
     (1,1),
     (2,2),

@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.signals import pre_delete, post_save
 
 from coco.data_log import delete_log, save_log
-from coco.base_models import ACTORS, CocoModel, VIDEO_STATUS, WOMEN_FEATURED
+from coco.base_models import ACTORS, CocoModel, VIDEO_STATUS, YesNo_CHOICES
 from geographies.models import Village
 from programs.models import Partner
 from people.models import Animator, Person
@@ -52,7 +52,7 @@ class Video(CocoModel):
     village = models.ForeignKey(Village)
     production_team = models.ManyToManyField(Animator, related_name='production_team')
     persons_shown = models.ManyToManyField(Person, null=True, blank=True, related_name='persons_shown')
-    women_featured = models.CharField(max_length=100, choices=WOMEN_FEATURED)
+    women_featured = models.CharField(max_length=100, choices=YesNo_CHOICES)
     approval_date = models.DateField(null=True, blank=True)
     video_suitable_for = models.CharField(max_length=100, choices=VIDEO_STATUS)
     youtubeid = models.CharField(max_length=20, blank=True)

@@ -60,15 +60,6 @@ YesNo_CHOICES = (
     ('Y','Yes'),
 )
 
-WOMEN_FEATURED = (
-    ('Farming','Farming'),
-    ('Teaching','Teaching'),
-    ('Making Decisions','Making Decisions'),
-    ('Being Interviwed','Being Interviwed'),
-    ('Other Activities','Other Activities'),
-    ('Does not feature women','Does not feature women'),
-)
-
 
 class CocoModel(models.Model):
     user_created = models.ForeignKey(User, related_name ="%(app_label)s_%(class)s_created", editable = False, null=True, blank=True)
