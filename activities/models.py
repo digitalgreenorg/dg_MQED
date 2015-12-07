@@ -14,6 +14,7 @@ class Screening(CocoModel):
     id = models.AutoField(primary_key=True)
     old_coco_id = models.BigIntegerField(editable=False, null=True)
     date = models.DateField()
+    crop_stage =  models.CharField(max_length=10, null=True, blank=True)
     start_time = models.TimeField()
     end_time = models.TimeField()
     location = models.CharField(max_length=200, blank=True)
