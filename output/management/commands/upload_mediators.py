@@ -1,4 +1,5 @@
-#script to upload cocousers, mediators and assigned villages to  mediators
+#script to upload cocousers, mediators and assigned villages to mediators
+
 from django.core.management.base import BaseCommand
 import os
 from pandas import *
