@@ -8,12 +8,14 @@ from programs.models import *
 class Command(BaseCommand):
 	def handle(self, *args, **options):
 
-		for filename in os.listdir('/home/ubuntu/django_projects/New'):
+		for filename in os.listdir('/home/ubuntu/django_projects/Geo'):
+		#for filename in os.listdir('C:\Users\Abhishek\Desktop\New'):
 			
-			error_file = open('/home/ubuntu/django_projects/errors.csv', 'wb')
+			error_file = open('/home/ubuntu/django_projects/Geo/errors.csv', 'wb')
+			#error_file = open('C:\Users\Abhishek\Desktop\New\errors.csv', 'wb')
 			wrtr = csv.writer(error_file, delimiter=',', quotechar='"')
-			wrtr.writerow(["Entry No.", "File Name", "Error"])
-			xls = ExcelFile('/home/ubuntu/django_projects/New/'+filename)
+			xls = ExcelFile('/home/ubuntu/django_projects/Geo/'+filename)
+			#xls = ExcelFile('C:\Users\Abhishek\Desktop\New\\'+filename)
 			rows_file = xls.parse(xls.sheet_names[0])
 			#print df.to_dict()
 

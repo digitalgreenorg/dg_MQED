@@ -12,14 +12,14 @@ import unicodecsv as csv
 class Command(BaseCommand):
 	def handle(self, *args, **options):
 		for filename in os.listdir('/home/ubuntu/django_projects/Mediator'):
-		#for filename in os.listdir('C:\Users\Abhishek\Desktop\Field_officer'):
+		#for filename in os.listdir('C:\Users\Abhishek\Desktop\N'):
 			
 			error_file = open('/home/ubuntu/django_projects/Mediator/errors.csv', 'wb')
-			#error_file = open('C:\Users\Abhishek\Desktop\Field_officer\errors.csv', 'wb')
+			#error_file = open('C:\Users\Abhishek\Desktop\N\errors.csv', 'wb')
 			wrtr = csv.writer(error_file, delimiter=',', quotechar='"')
 			wrtr.writerow(["Entry No.", "File Name", "Error"])
 		
-			#csvfile = open('C:\Users\Abhishek\Desktop\Field_officer\\field.csv', 'rb')
+			#csvfile = open('C:\Users\Abhishek\Desktop\N\\field.csv', 'rb')
 			csvfile = open('/home/ubuntu/django_projects/Mediator/field.csv', 'rb')
 			rows_file = csv.DictReader(csvfile)
 
@@ -67,7 +67,7 @@ class Command(BaseCommand):
 							wrtr.writerow([i, "villages assigned error", e])
 							print i, "villages assigned error", e'''
 
-			'''wrtr.writerow(["Field officers"])	
+			wrtr.writerow(["Field officers"])	
 			i = 0
 			for row in rows_file:
 				try:
@@ -81,29 +81,34 @@ class Command(BaseCommand):
 						print i,"village not found", e
 				
 				partner = Partner.objects.get(partner_name = unicode(row['Company']))
-				
-				if (str(row['Fathers Name']) == ''):
-					father = str('')
-				else:
-					father = str(row['Fathers Name'])
 
 				if (str(row['Phone number']) == ''):
 					phone = str('')
 				else:
 					phone = str(row['Phone number'])
 
+				if (str(row['Training in video production']) == 'No'):
+					vp = str('N')
+				else:
+					vp = str('Y')
+
+				if (str(row['Trained in video screening']) == 'No'):
+					vt = str('N')
+				else:
+					vt = str('Y')
+
 				try:
 					animator = Animator(name = unicode(row['Field Officer Name']),
-										father_name = father,
+										father_name = unicode(row['Fathers Name']),
 										gender = 'M',
 										partner = partner,
 										phone_no = phone,
-										trained_in_video_production = 'N',
-										trained_in_video_screening = 'Y')
+										trained_in_video_production = vp,
+										trained_in_video_screening = vt)
 					animator.save()
 				except Exception as e:
 						wrtr.writerow([i, "animator", e])
-						print i,"animator failed", e'''
+						print i,"animator failed", e
 
 			wrtr.writerow(["Field officer assigned villages"])	
 			i = 0
