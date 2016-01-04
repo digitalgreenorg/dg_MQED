@@ -10,7 +10,7 @@ from people.models import Animator, Person
 class Topic(CocoModel):
     id = models.AutoField(primary_key=True)
     old_coco_id = models.BigIntegerField(editable=False, null=True)
-    topic_name = models.CharField(max_length=100, default="None")
+    topic_name = models.CharField(max_length=1000, default="None")
 
     def get_village(self):
         return None
@@ -73,9 +73,9 @@ pre_delete.connect(delete_log, sender=Video)
 class NonNegotiable(CocoModel):
     id = models.AutoField(primary_key=True)
     topic = models.ForeignKey(Topic)
-    non_negotiable = models.CharField(max_length=500)
-    chapter =  models.CharField(max_length=500)
-    timing =  models.CharField(max_length=500)
+    non_negotiable = models.CharField(max_length=1000)
+    chapter =  models.CharField(max_length=500, null=True, blank=True)
+    timing =  models.CharField(max_length=500, null=True, blank=True)
     physically_verifiable = models.BooleanField(db_index=True, default=False)
     
 

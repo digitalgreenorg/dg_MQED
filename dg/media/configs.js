@@ -426,7 +426,7 @@ function() {
                 topic_name: {
                     required: true,
                     minlength: 2,
-                    maxlength: 200,
+                    maxlength: 1000,
                     // allowedChar: true
                 },
                
@@ -435,8 +435,8 @@ function() {
                 title: {
                     required: 'Topic name is required',
                     minlength: 'Topic name should contain at least 2 characters',
-                    maxlength: 'Topic name should contain at most 200 characters',
-                    // allowedChar: 'Video title should only contain alphabets and local language characters'
+                    maxlength: 'Topic name should contain at most 1000 characters',
+                    // allowedChar: 'Topic title should only contain alphabets and local language characters'
                 },
                 
             },
