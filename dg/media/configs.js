@@ -842,11 +842,18 @@ function() {
                     validateTime: true,
                     timeOrder: {start_time : "start_time"}
                 },
+                female_attendees: {
+                    digits: true,
+                    maxlength: 2
+                },
+                male_attendees: {
+                    digits: true,
+                    maxlength: 2
+                },
                 animator: "required",
                 village: "required",
                 videoes_screened: "required",
                 farmer_groups_targeted: "required"
-
             },
             messages: {
                 date: {
@@ -861,6 +868,14 @@ function() {
                     required: 'Screening end time is required',
                     validateTime: 'Enter the end time in the form of HH:MM. Use 24 hour format',
                     timeOrder: 'End time should be later than start time',
+                },
+                female_attendees: {
+                    digits: 'Number of female attendees should contain only digits',
+                    maxlength: "Number of female attendees should not contain more than 2 digits"
+                },
+                male_attendees: {
+                    digits: 'Number of male attendees should contain only digits',
+                    maxlength: "Number of male attendees should not contain more than 2 digits"
                 },
                 animator: "Mediator is required",
                 village:"Village is required",

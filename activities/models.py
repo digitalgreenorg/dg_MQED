@@ -22,6 +22,8 @@ class Screening(CocoModel):
     animator = models.ForeignKey(Animator, verbose_name = 'Field Officer')
     farmer_groups_targeted = models.ManyToManyField(PersonGroup, verbose_name = 'Farmer Families')
     videoes_screened = models.ManyToManyField(Video, verbose_name='Videos Screened')
+    female_attendees = models.IntegerField(null=True)
+    male_attendees = models.IntegerField(null=True)
     farmers_attendance = models.ManyToManyField(Person, through='PersonMeetingAttendance', blank='False', null='False')
     partner = models.ForeignKey(Partner, verbose_name='Supply Partner')
     
