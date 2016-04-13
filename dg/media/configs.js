@@ -655,7 +655,7 @@ function() {
         'page_header': 'Screening',
         'add_template_name': 'screening_add_edit_template',
         'edit_template_name': 'screening_add_edit_template',
-        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Screening Date','element':'date'},{'header':'Field Officer','element':'animator.name'},{'header':'Village','element':'village.village_name'},{'header':'Farmer Families Attended','subelement':'name','element':'farmer_groups_targeted'},{'header':'Videos Screened','subelement':'title','element':'videoes_screened'}],
+        'list_elements': [{'header':'ID','element':'online_id'},{'header':'Screening Date','element':'date'},{'header':'Field Officer','element':'animator.name'},{'header':'Village','element':'village.village_name'},{'header':'Farmer Families Attended','subelement':'name','element':'farmer_groups_targeted'},{'header':'Videos Screened','subelement':'title','element':'videoes_screened'},{'header':'Females Attended','element':'female_attendees'},{'header':'Males Attended','element':'male_attendees'}],
         'rest_api_url': '/coco/api/v2/screening/',
         'entity_name': 'screening',
         download_chunk_size: 1000,
